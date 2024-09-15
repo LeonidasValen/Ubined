@@ -1,0 +1,60 @@
+.schoolContent{
+    background: var(--bgColorContent);
+    display: flex;
+    border: 1px solid var(--borderSeparation);
+    border-radius: 0.5rem;
+    box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    overflow: hidden;
+}
+
+.sMiniature{
+    position: relative;
+    width: 270px;
+    height: 250px;
+    flex: 0 0 auto;
+}
+.sMiniature img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.sInfo{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.sInfo h3{
+    color: #0ba853;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+}
+
+.sInfo p{
+    color: 	#6e6e77;
+    font-weight: 400;
+    font-size: 1rem;
+}
+.sDirec{
+    color: 	#146fcc !important;
+    /* color: 	#27272c !important; */
+}
+
+.sData{
+    display: grid;
+    gap: .2rem;
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 10px;
+}
+
+.sInfo span{
+    font-size: 14px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    line-break: auto;
+    -webkit-box-orient: vertical;
+}

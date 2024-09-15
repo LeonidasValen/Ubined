@@ -1,0 +1,52 @@
+.mainConfig{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    margin: 2rem auto;
+}
+
+.configAside{
+    display: flex;
+    flex-direction: column;
+    background: var(--bgColorContent);
+    position: sticky;
+    width: 24%;
+    top: 6rem;
+    float: left;
+    border-radius: 10px;
+    box-shadow: rgba(145, 158, 171, 0.2) 0px 0px 2px 0px, rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
+    border: 1px solid var(--borderSeparation);
+    overflow: hidden;
+    color: var(--Font);
+}
+
+.btnConfig{
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding: 10px ;
+    border: 0;
+    font-size: 15px;
+    font-weight: 500;
+    gap: .5rem;
+}
+.btnConfig:not(:last-child){
+    border-bottom: 1px solid var(--borderSeparation);
+}
+
+.configContent{
+    background: var(--bgColorContent);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 74%;
+    padding: 10px;
+    float: right;
+    border-radius: 10px;
+    box-shadow: rgba(145, 158, 171, 0.2) 0px 0px 2px 0px, rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
+    border: 1px solid var(--borderSeparation);
+    overflow: hidden;
+    color: var(--Font);
+}
