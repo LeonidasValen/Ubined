@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,300..800&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+*{
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    overflow-x: hidden;
+}
+
+body{
+    background-color: var(--bgColor);
+    min-height: 100vh;
+}
+
+.app{
+    --bgColor: #f7fafc;
+    --bgUiColor: #1bb10c;
+    --bgColorContent: #ffffff;
+    --bgGradientColor: linear-gradient(-45deg, #1f8656 0%, #18d158 100%);
+    --Font: #000;
+    --FontColor: #0ba853;
+    --FontContrast: #fff;
+    --FontGray: rgb(129, 129, 129);
+    --borderColor: rgb(11 171 95);
+    --borderSeparation: #e8e8e8;
+}
+
+.app.dark-mode{
+    --bgColor: #131827;
+    --bgUiColor: #826cf9;
+    --bgColorContent: #212937;
+    --bgGradientColor: linear-gradient(-45deg, #23004b 0%, #9d18d1 100%);
+    --Font: #fff;
+    --FontColor: #610ba8;
+    --FontContrast: #000;
+    --FontGray: #a9a9a9;
+    --borderColor: #3b0c72;
+    --borderSeparation: rgb(55 65 81 / 0.6);
+}
+
+.app{
+    background-color: var(--bgColor);
+    color: var(--Font);
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4{
+    text-wrap: balance;
+}
+
+p{
+    text-wrap: pretty;
+}
+
+a{
+    color: var(--Font);
+    text-decoration: none;
+}
+
+ul{
+    list-style: none;
+}
+
+button{
+    cursor: pointer;
+}
+
+img{
+    max-height: 100%;
+}

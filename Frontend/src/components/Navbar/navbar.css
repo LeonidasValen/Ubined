@@ -1,0 +1,43 @@
+.navbar {
+    position: sticky;
+    top: 0;
+    padding-block: 10px;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    border-bottom: 1px solid var(--borderSeparation);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.096);
+    z-index: 10;
+    background: var(--bgColorContent);
+}
+
+.navbar .nContainer{
+    display: flex;
+    justify-content: space-between;
+    max-width: 1500px;
+    margin: auto;
+}
+
+.nLogo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nLogo img{
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    aspect-ratio: 7/10;
+}
+
+.nContainer .support{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+}
+
+.nContainer .support a{
+    color: rgb(13 166 103);
+    font-weight: 500;
+}

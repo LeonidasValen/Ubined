@@ -1,0 +1,100 @@
+.filterSchool{
+    background: var(--bgColorContent);
+    position: sticky;
+    width: 24%;
+    top: 6rem;
+    float: left;
+    border-radius: 10px;
+    box-shadow: rgba(145, 158, 171, 0.2) 0px 0px 2px 0px, rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
+    border: 1px solid var(--borderSeparation);
+    overflow: hidden;
+    color: var(--Font);
+}
+
+.filterSchool h1{
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid var(--borderSeparation);
+}
+
+.filterItems .items{
+    cursor: pointer;
+}
+
+.filterItems .items:not(:last-child) {
+    border-bottom: 1px solid var(--borderSeparation);
+}
+
+.filterItems .items span{
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.filterItems .items .ArrowDown path{
+    fill: #000;
+}
+
+.filterItems .items .subitems{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+}
+.filterItems .items .subitems:hover{
+    background: #d1d1d1;
+}
+.items .subitems svg{
+    transition: 0.2s;
+}
+.items .subitems.actived svg{
+    transform: rotate(-90deg);
+}
+
+.Ifilters{
+    background: #e3e3e3;
+    height: auto;
+    transition: 0.3s;
+    overflow: hidden;
+}
+
+.Ifilters .item-li{
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    gap: 10px;
+}
+.Ifilters .item-li:hover{
+    background: #cccccc;
+}
+
+.Ifilters .item-li .checkbox{
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    width: 20px;
+    border-radius: 4px;
+    border: 2px solid black;
+    transition: all 0.3s ease-in-out;
+}
+
+.Ifilters .item-li .checkbox.checked{
+    background: #0084ff9b;
+    border: 2px solid #006fd79b;
+}
+
+.Ifilters .item-li .checkbox svg{
+    transform: scale(0);
+    transition: all 0.1s ease-in-out;
+    color: #fff;
+    height: 18px;
+    width: 18px;
+}
+
+.Ifilters .item-li .checkbox.checked svg{
+    transform: scale(1);
+}
+
+.Ifilters .item-li .subfilter{
+    font-weight: 600;
+}

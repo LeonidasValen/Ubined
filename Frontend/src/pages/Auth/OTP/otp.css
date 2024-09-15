@@ -1,0 +1,57 @@
+.form-content.otp{
+    width: 600px;
+    border: 0;
+}
+
+.formCube.otp{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #fff;
+    width: 100%;
+    gap: 20px;
+}
+
+.formCube.otp p{
+    max-width: 350px;
+    text-align: center;
+}
+
+.otpInputs{
+    display: flex;
+    margin-block: 10px;
+    gap: 15px;
+}
+
+.otpInputs input::-webkit-outer-spin-button,
+.otpInputs input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.otpInputs input{
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 300;
+    height: 5rem;
+    width: 4rem;
+    border: 1px solid;
+    border-radius: 10px;
+}
+
+.otpVerify{
+    width: 100%;
+    background: rgb(10, 196, 131);
+    color: white;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+.otpVerify{
+    background: rgb(16, 204, 138);
+}

@@ -1,0 +1,67 @@
+.searchSchool{
+    background: var(--bgColorContent);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: rgba(145, 158, 171, 0.2) 0px 0px 2px 0px, rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
+    border: 1px solid var(--borderSeparation);
+    border-radius: 10px;
+    gap: 12px;
+}
+
+.searchSchool .sIntitucion{
+    display: flex;
+    width: 100%;
+}
+
+.sIntitucion button{
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    border: 0;
+    border-radius: 10px 0 0 10px;
+}
+.sIntitucion button:hover{
+    background: #d3d3d3;
+}
+
+.sIntitucion input{
+    background: transparent;
+    outline: none;
+    width: 100%;
+    padding: 10px;
+    border: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.searchSchool .select{
+    display: flex;
+    margin-right: 10px;
+    gap: 10px;
+}
+
+.searchSchool .select button{
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    padding: 5px 10px;
+    border: 1px solid #dbdbdb;
+    font-size: 14px;
+    border-radius: 20px;
+}
+.searchSchool .select button:hover{
+    border: 1px solid rgb(18, 102, 211);
+}
+
+.searchSchool .select svg{
+    height: 20px;
+    width: 20px;
+}
+.searchSchool .select button path{
+    fill: black;
+}
