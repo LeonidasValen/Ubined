@@ -1,4 +1,4 @@
-.schoolInfoContent{
+.schoolInfoContent {
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -7,28 +7,30 @@
     margin-inline: auto;
 }
 
-.sInfoPrincipal h2{
+.sInfoPrincipal h2 {
     font-size: 1.3rem;
     font-weight: 600;
     margin-bottom: 10px;
 }
-.sInfoGeneral h2{
+
+.sInfoGeneral h2 {
     font-size: 1.3rem;
     font-weight: 600;
     margin-bottom: 5px;
 }
 
-.tittleNoMargin{
+.tittleNoMargin {
     margin-bottom: 0 !important;
 }
 
 /* COLUMNA IZQUIRDA GENERAL */
 
-.sInfoGeneral{
+.sInfoGeneral {
     display: flex;
     flex-direction: column;
     background: var(--bgColorContent);
-    width: 26%;
+    width: 22%;
+    height: fit-content;
     padding: 1rem;
     border: 1px solid var(--borderSeparation);
     border-radius: 1rem;
@@ -36,7 +38,7 @@
     overflow: hidden;
 }
 
-.gPhotoInstitute{
+.gPhotoInstitute {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,41 +46,45 @@
     height: 100%;
     max-height: 350px;
 }
-.gPhotoInstitute img{
+
+.gPhotoInstitute img {
     object-fit: cover;
     height: 100%;
     width: 100%;
     border-radius: 10px;
 }
 
-.gDirection{
+.gDirection {
     display: flex;
     flex-direction: column;
 }
-.dLocate span{
+
+.dLocate span {
     font-weight: 600;
 }
 
-.gContact .contact span{
+.gContact .contact span {
     font-weight: 600;
 }
-.gContact .contact svg{
+
+.gContact .contact svg {
     color: black;
 }
-.gContact .contact p{
+
+.gContact .contact p {
     display: flex;
     align-items: center;
     gap: .2rem;
     color: #146fcc;
 }
 
-.redes{
+.redes {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: .5rem;
 }
 
-.redes a{
+.redes a {
     display: flex;
     align-items: center;
     justify-content: start;
@@ -89,37 +95,37 @@
     gap: .3rem;
 }
 
-.redes a img{
+.redes a img {
     height: 20px;
     width: 20px;
     object-fit: contain;
     object-position: center;
 }
 
-.webSite{
+.webSite {
     display: flex;
     flex-direction: column;
 }
 
-.webSite span{
+.webSite span {
     font-weight: 500;
 }
 
-.webSite a{
+.webSite a {
     color: #146fcc;
 }
 
-.webSite a:hover{
+.webSite a:hover {
     text-decoration: underline;
 }
 
 /* COLUMNA DERECHA PRINCIPAL */
 
-.sInfoPrincipal{
+.sInfoPrincipal {
     display: flex;
     flex-direction: column;
     background: var(--bgColorContent);
-    width: 72%;
+    width: 77%;
     padding: 1rem;
     border: 1px solid var(--borderSeparation);
     border-radius: 1rem;
@@ -127,81 +133,98 @@
     overflow: hidden;
 }
 
-.pTitleSchool{
+.pTitleSchool {
     font-size: 1.8rem;
     font-weight: 700;
 }
 
-.dataSchool{
+.dataSchool {
     display: flex;
     justify-content: space-between;
 }
-.dataSchool .data{
+
+.dataSchool .data {
     display: flex;
     gap: .5rem;
 }
-.dataSchool .data span{
+
+.dataSchool .data span {
     font-weight: 600;
 }
 
-.modalities{
+.modalities {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 20px;
 }
 
-.modalities .modality{
+.modalities .modality {
     display: flex;
     align-items: center;
     gap: .5rem;
 }
 
-.modalities .modality img{
+.modalities .modality img {
     height: 24px;
     width: 24px;
 }
 
-.aditionalInfo{
+.aditionalInfo {
     display: flex;
     justify-content: space-between;
 }
 
-.columnInfo{
+.columnInfo {
     display: flex;
     flex-direction: column;
     width: 40%;
 }
 
-.aditionalInfo .tittleAditional{
+.aditionalInfo .tittleAditional {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
     gap: .5rem;
 }
 
-.column-info li{
+.column-info li {
     display: flex;
     justify-content: space-between;
 }
 
-.column-info li span{
+.column-info li span {
     font-weight: 500;
 }
 
+.itemRedSocial.Facebook {
+    background: #1877f2;
+}
+.itemRedSocial.Instagram {
+    background: linear-gradient(30deg,#f78331,#da2e7d 50.39%,#6b54c6);
+}
+.itemRedSocial.Twitter {
+    background: #000;
+}
+.itemRedSocial.YouTube{
+    background: #f50022;
+}
+
+
 /* Responsibe */
-@media screen and (max-width: 1630px){
+/* @media screen and (max-width: 1630px){
     .redes{
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-}
-@media screen and (max-width: 1080px){
-    .redes{
+} */
+@media screen and (max-width: 1080px) {
+    .redes {
         grid-template-columns: repeat(1, minmax(0, 1fr));
     }
 }
-@media screen and (max-width: 980px){
-    .dataSchool{
+
+@media screen and (max-width: 980px) {
+    .dataSchool {
         flex-direction: column;
     }
 }

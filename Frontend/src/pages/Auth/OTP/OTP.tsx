@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 
 export function OTP() {
 
-    const length: number = 5
+    const length: number = 6
 
     const inputRef = useRef<HTMLInputElement[]>(Array(length).fill(null));
 

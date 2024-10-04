@@ -1,5 +1,6 @@
 .navbar {
     position: sticky;
+    width: 100%;
     top: 0;
     padding-block: 10px;
     padding-left: 3rem;
@@ -13,6 +14,7 @@
 .navbar .nContainer{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     max-width: 1500px;
     margin: auto;
 }
@@ -38,6 +40,95 @@
 }
 
 .nContainer .support a{
-    color: rgb(13 166 103);
+    color: var(--FontColor);
     font-weight: 500;
+}
+
+.profileDropdown{
+    position: relative;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+}
+
+.profileDropdown .pdBtn{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    padding-right: 7px;
+    font-size: 17px;
+    border-radius: 50px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.pdBtn span{
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.pdImg{
+    display: flex;
+}
+.pdImg img{
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.pdBtn svg{
+    width: 26px;
+    height: 26px;
+}
+.pdBtn path{
+    fill: black;
+}
+
+.pConfigMenu{
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background: var(--bgColorContent);
+    border: 1px solid var(--borderSeparation2);
+    border-radius: 20px;
+    box-shadow: var(--boxShadow);
+    animation: menu .1s ease;
+    transition-duration: 1s;
+    overflow: hidden;
+}
+
+@keyframes menu{
+    0% {
+        opacity: 0;
+    }
+    
+    100% {
+        opacity: 1;
+    }
+}
+
+.pMenuItem{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.pMenuItem:hover{
+    background: #dfdfdf;
+}
+
+.pMenuItem.logout{
+    border-top: 1px solid var(--borderSeparation2);
+}
+
+.pMenuItem a{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    color: var(--Font) !important;
+    font-weight: 600;
+    padding: 8px 40px 8px 12px;
+    width: 100%;
 }
