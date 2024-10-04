@@ -40,7 +40,7 @@
     padding: 12px 20px;
 }
 .filterItems .items .subitems:hover{
-    background: #d1d1d1;
+    background: #dfdfdf;
 }
 .items .subitems svg{
     transition: 0.2s;
@@ -50,7 +50,7 @@
 }
 
 .Ifilters{
-    background: #e3e3e3;
+    background: #f0f0f0;
     height: auto;
     transition: 0.3s;
     overflow: hidden;
@@ -63,7 +63,7 @@
     gap: 10px;
 }
 .Ifilters .item-li:hover{
-    background: #cccccc;
+    background: #d1d1d1;
 }
 
 .Ifilters .item-li .checkbox{

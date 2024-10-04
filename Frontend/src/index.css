@@ -14,7 +14,6 @@ html{
 }
 
 body{
-    background-color: var(--bgColor);
     min-height: 100vh;
 }
 
@@ -23,12 +22,14 @@ body{
     --bgUiColor: #1bb10c;
     --bgColorContent: #ffffff;
     --bgGradientColor: linear-gradient(-45deg, #1f8656 0%, #18d158 100%);
-    --Font: #000;
+    --Font: #0d0d0e;
     --FontColor: #0ba853;
     --FontContrast: #fff;
     --FontGray: rgb(129, 129, 129);
     --borderColor: rgb(11 171 95);
     --borderSeparation: #e8e8e8;
+    --borderSeparation2:rgb(202, 202, 202);
+    --boxShadow: rgba(145, 158, 171, 0.2) 0px 0px 2px 0px, rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
 }
 
 .app.dark-mode{
@@ -42,6 +43,7 @@ body{
     --FontGray: #a9a9a9;
     --borderColor: #3b0c72;
     --borderSeparation: rgb(55 65 81 / 0.6);
+    --borderSeparation2:rgb(202, 202, 202);
 }
 
 .app{

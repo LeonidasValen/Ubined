@@ -26,35 +26,82 @@
     padding: 1rem;
 }
 
-.sInfo h3{
-    color: #0ba853;
+.sInfo .sTitle{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.sTitle h3{
+    color: rgb(9, 9, 11);
     font-weight: 700;
-    font-size: 1.2rem;
-    margin-bottom: 8px;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.sTitle .sType{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.125rem 0.625rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.sTitle .sType.Pública{
+    background: rgb(161, 255, 161);
+}
+.sTitle .sType.Privada{
+    color: #fff;
+    background: rgb(21 143 213);
 }
 
 .sInfo p{
-    color: 	#6e6e77;
     font-weight: 400;
-    font-size: 1rem;
+    font-size: 0.85rem;
 }
 .sDirec{
-    color: 	#146fcc !important;
+    color: 	#1362c4 !important;
+    font-size: 0.885rem;
     /* color: 	#27272c !important; */
 }
 
 .sData{
-    display: grid;
-    gap: .2rem;
-    grid-template-columns: repeat(2, 1fr);
-    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    margin-bottom: 0.5rem;
 }
 
-.sInfo span{
+.sItems{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.sItems span{
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.sItems p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.12rem 0.62rem;
+    border-radius: 20px;
+    background-color: #ececec;
+}
+
+.sInfo .sDesc{
     font-size: 14px;
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 5;
+    -webkit-line-clamp: 3;
     line-break: auto;
     -webkit-box-orient: vertical;
+    margin-bottom: 1rem;
 }

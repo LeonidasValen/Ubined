@@ -32,7 +32,7 @@ function App() {
           element: <School/>
         },
         {
-          path: '/school/:id',
+          path: '/school/:schoolId',
           element: <DetailSchool/>
         },
         {
