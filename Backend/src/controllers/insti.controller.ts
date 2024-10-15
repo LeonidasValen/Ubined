@@ -2,7 +2,37 @@ import { Request, Response } from "express";
 import { InstiRow, InstiRowArticle } from "../interface/insti.interface";
 
 export const getSchools = async (req: Request, res: Response): Promise<void> => {
+    //Paginacion dei instituciones
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+    const offset = (page - 1) * limit;
+    
+    //obtiene los filtros
+    const horario = req.query.horario as string | string[];
+    const nivel = req.query.nivel as string | string[];
+    const tipo = req.query.tipo as string | string[];
+
+    // guarda arrays para las cláusulas WHERE y los parámetros de la consulta
+    const whereClauses: string[] = [];
+    const queryParams: (string | number)[] = [];
+
+    const addFilter = (field: string, values: string | string[]) => { //field obtinene el campo(insti) y values el valor o array de valores
+        const arrayFilter = Array.isArray(values) ? values : [values];//si el valor no es un array osea un string lo convierte en un array
+        arrayFilter.forEach(value => queryParams.push(`%${value}%`));//para cada valor de la array se agrega % para buscar coincidencias
+
+        const conditions = arrayFilter.map(() => `${field} LIKE ?`); //para cada valor de la array se genera condicion "LIKE ?". [institucion.horary, institucion.type] -> (institucion.horary LIKE ? OR institucion.type LIKE ?)
+        whereClauses.push(`(${conditions.join(' OR ')})`);// despues de la condicion LIKE ? se agrega el OR
+    };
+    
+    // aplica filtros si estan presentes
+    if (horario) addFilter('institucion.horary', horario);
+    if (nivel) addFilter('institucion.nivel', nivel);
+    if (tipo) addFilter('institucion.type', tipo);
+
+    const whereClause = whereClauses.length > 0 ? `WHERE ${whereClauses.join(' AND ')}` : ''; //si hay clausulas se agrega WHERE y separa con AND si hay mas de una clausula
+
     try {
+        // Construye la consulta SQL con filtros y paginación
         const [sql] = await req.db!.query<InstiRowArticle[]>(
             `SELECT 
                 institucion.id, 
@@ -12,6 +42,7 @@ export const getSchools = async (req: Request, res: Response): Promise<void> => 
                 institucion.id_localidad, 
                 institucion.name_insti, 
                 institucion.type, 
+                institucion.horary, 
                 institucion.nivel, 
                 institucion.descrip, 
                 institucion.address, 
@@ -22,10 +53,18 @@ export const getSchools = async (req: Request, res: Response): Promise<void> => 
                 provincias ON provincias.id = institucion.id_provincia
             INNER JOIN
                 localidades ON localidades.id = institucion.id_localidad
-             ORDER BY 
+            ${whereClause}
+            ORDER BY 
                 institucion.createdAt DESC
-            `, [])
+            LIMIT ? OFFSET ?
+            `, [...queryParams, limit, offset]);
 
+        if (sql.length === 0) {
+            res.status(404).json({ message: 'No se encontraron instituciones' });
+            return
+        }
+
+        // Formatea los resultados
         const insti = sql.map(row => {
             return {
                 schoolId: row.id,
@@ -33,12 +72,13 @@ export const getSchools = async (req: Request, res: Response): Promise<void> => 
                 localidad: row.localidad,
                 NameSchool: row.name_insti,
                 type: row.type,
+                horary: row.horary,
                 nivel: row.nivel,
                 desc: row.descrip,
                 address: row.address,
                 creationAt: row.createdAt,
             }
-        })
+        });
 
         res.status(200).json(insti);
     } catch (error) {

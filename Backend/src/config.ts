@@ -10,3 +10,5 @@ export const USER = process.env.USER;
 export const PASS = process.env.PASS;
 
 export const JWT_TOKEN = process.env.JWT_TOKEN;
+export const PORTFRONTEND = process.env.PORTFRONTEND;
+export const PORTFRONTENDTEST = process.env.PORTFRONTENDTEST;

@@ -17,6 +17,10 @@ body{
     min-height: 100vh;
 }
 
+main{
+    min-height: 50vh;
+}
+
 .app{
     --bgColor: #f7fafc;
     --bgUiColor: #1bb10c;
@@ -28,7 +32,7 @@ body{
     --FontGray: rgb(129, 129, 129);
     --borderColor: rgb(11 171 95);
     --borderSeparation: #e8e8e8;
-    --borderSeparation2:rgb(202, 202, 202);
+    --borderSeparation2:#e5e7eb;
     --boxShadow: rgba(145, 158, 171, 0.2) 0px 0px 2px 0px, rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
 }
 

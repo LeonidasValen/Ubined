@@ -5,10 +5,12 @@ import './config.css'
 export function Config() {
     return (
         <main className="mainConfig">
-            <ConfigNavigate />
-            <section className="configContent">
-                <Outlet/>
-            </section>
+            <div className="configContainer">
+                <ConfigNavigate />
+                <section className="configContent">
+                    <Outlet />
+                </section>
+            </div>
         </main>
     )
 }

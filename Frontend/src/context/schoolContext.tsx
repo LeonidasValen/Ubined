@@ -4,7 +4,7 @@ import { DetailSchool, School } from "./interface/school";
 
 
 interface SchoolContextProps {
-    getSchools: () => Promise<void>;
+    getSchools: (filter:string) => Promise<void>;
     getSchool: (id:number) => Promise<void>;
     schools: School[];
     school: DetailSchool[];
@@ -34,11 +34,11 @@ export const SchoolProvider: React.FC<SchoolProvider> = ({ children }) => {
 
     const [school, setSchool] = useState<DetailSchool[]>([])
 
-    const getSchools = async () => {
+    const getSchools = async (filter:string) => {
         setSchools([]);
         try {
             const res = await fetchData({
-                url: '/institucion/schools',
+                url: `/institucion/schools/?${filter}`,
                 method: 'get',
             });
             setSchools(res);

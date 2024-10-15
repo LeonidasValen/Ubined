@@ -11,7 +11,7 @@
     background: var(--bgColorContent);
 }
 
-.navbar .nContainer{
+.navbar .nContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -19,39 +19,39 @@
     margin: auto;
 }
 
-.nLogo{
+.nLogo {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.nLogo img{
+.nLogo img {
     width: 60px;
     height: 60px;
     object-fit: contain;
     aspect-ratio: 7/10;
 }
 
-.nContainer .support{
+.nContainer .support {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 18px;
 }
 
-.nContainer .support a{
+.nContainer .support a {
     color: var(--FontColor);
     font-weight: 500;
 }
 
-.profileDropdown{
+.profileDropdown {
     position: relative;
     width: fit-content;
     display: flex;
     align-items: center;
 }
 
-.profileDropdown .pdBtn{
+.profileDropdown .pdBtn {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -63,67 +63,69 @@
     overflow: hidden;
 }
 
-.pdBtn span{
+.pdBtn span {
     font-size: 1rem;
     font-weight: 500;
 }
 
-.pdImg{
+.pdImg {
     display: flex;
 }
-.pdImg img{
+
+.pdImg img {
     width: 32px;
     height: 32px;
     object-fit: cover;
     border-radius: 50%;
 }
 
-.pdBtn svg{
+.pdBtn svg {
     width: 26px;
     height: 26px;
 }
-.pdBtn path{
+
+.pdBtn path {
     fill: black;
 }
 
-.pConfigMenu{
+.pConfigMenu {
     position: absolute;
     top: 50px;
     right: 0;
     background: var(--bgColorContent);
     border: 1px solid var(--borderSeparation2);
-    border-radius: 20px;
+    border-radius: 10px;
     box-shadow: var(--boxShadow);
     animation: menu .1s ease;
     transition-duration: 1s;
     overflow: hidden;
 }
 
-@keyframes menu{
+@keyframes menu {
     0% {
         opacity: 0;
     }
-    
+
     100% {
         opacity: 1;
     }
 }
 
-.pMenuItem{
+.pMenuItem {
     display: flex;
     align-items: center;
     justify-content: flex-start;
 }
 
-.pMenuItem:hover{
+.pMenuItem:hover {
     background: #dfdfdf;
 }
 
-.pMenuItem.logout{
+.pMenuItem.logout {
     border-top: 1px solid var(--borderSeparation2);
 }
 
-.pMenuItem a{
+.pMenuItem a {
     display: flex;
     align-items: center;
     gap: .5rem;
@@ -131,4 +133,34 @@
     font-weight: 600;
     padding: 8px 40px 8px 12px;
     width: 100%;
+}
+
+.loadingProfile {
+    position: relative;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+}
+
+.loadingProfile .imgLoading {
+    background-color: rgb(209 213 219 /1);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: .5rem;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.loadingProfile .loadingText {
+    height: 1.25rem;
+    width: 9rem;
+    background-color: rgb(209 213 219 /1);
+    border-radius: 50px;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+    50% {
+        opacity: .5;
+    }
 }

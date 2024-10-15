@@ -39,13 +39,13 @@ export const SchoolColum1: React.FC<SchoolColum1Props> = ({ provincia, localidad
         {phone && (
           <div className="contact">
             <span>Télefono:</span>
-            <p><IconPhone />{phone}</p>
+            <a href={`tel:${phone}`}><IconPhone />{phone}</a>
           </div>
         )
         }
         <div className="contact">
           <span>Correo:</span>
-          <p><IconEmail />{email}</p>
+          <a href={`mailto:${email}`}><IconEmail />{email}</a>
         </div>
       </div>
       {

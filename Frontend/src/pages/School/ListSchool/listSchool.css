@@ -93,15 +93,25 @@
     font-weight: 600;
     padding: 0.12rem 0.62rem;
     border-radius: 20px;
-    background-color: #ececec;
+    border: 1px solid var(--borderSeparation2);
 }
 
 .sInfo .sDesc{
-    font-size: 14px;
+    font-size: 0.85rem;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     line-break: auto;
     -webkit-box-orient: vertical;
     margin-bottom: 1rem;
+}
+
+.SItemInfo{
+    display: grid;
+    gap: 0.5rem;
+}
+
+.SItemInfo .sItems svg{
+    width: 20px;
+    height: 20px;
 }

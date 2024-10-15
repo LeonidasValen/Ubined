@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { IconArrowDown, IconCheck } from '../../../../assets/Icons';
 import './filter.css';
+import { useSchool } from '../../../../context/schoolContext';
 
 interface Subfilter {
   name: string;
@@ -19,18 +20,19 @@ const filters: FilterItem[] = [
     title: 'Nivel Académico',
     type: 'nivel',
     subfilters: [
-      { name: 'Inicial', link: 'inicial' },
-      { name: 'Primario', link: 'primario' },
-      { name: 'Secundario', link: 'secundario' },
-      { name: 'Universitario', link: 'universitario' },
+      { name: 'Inicial', link: 'Inicial' },
+      { name: 'Primario', link: 'Primario' },
+      { name: 'Secundario', link: 'Secundario' },
+      { name: 'Técnico', link: 'Técnico' },
+      { name: 'Universitario', link: 'Universitario' },
     ],
   },
   {
     title: 'Tipo de educación',
     type: 'tipo',
     subfilters: [
-      { name: 'Pública', link: 'publica' },
-      { name: 'Privada', link: 'privada' },
+      { name: 'Pública', link: 'Pública' },
+      { name: 'Privada', link: 'Privada' },
     ],
   },
   {
@@ -46,11 +48,12 @@ const filters: FilterItem[] = [
 ];
 
 export function Filter() {
+  const {getSchools} = useSchool()
   //Expandir el filtro
   const [expandedFilter, setExpandedFilter] = useState<Set<number>>(new Set());//estado para expandir el filtro
   const filterRefs = useRef<(HTMLUListElement | null)[]>([]);
   
-  //cando se hace click sobre uno de los filtros le pasa el index de cual fue 
+  //cuando se hace click sobre uno de los filtros le pasa el index de cual fue 
   const handleToggle = (index: number) => {
     setExpandedFilter(prev => {
       const newInidece = new Set(prev); //crea un objeto que guarda un  unico valor de los indices (Set(2:cantidad de indices) {1, 0}: cuales son los indices)
@@ -88,7 +91,6 @@ export function Filter() {
     } else {
       queryParams.append(type, link); //agrega los filtros si no esta seleccionado
     }
-
     navigate(`/schools/?${queryParams.toString()}`, { replace: true }); //actualiza la url evitando  que vuelva a una ruta anterior
   }
 
@@ -96,15 +98,33 @@ export function Filter() {
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const filtersFromUrl: { [key: string]: string[] } = {};
-
+    
     params.forEach((value, key) => {
       if (!filtersFromUrl[key]) {
         filtersFromUrl[key] = [];
       }
       filtersFromUrl[key].push(value);
     });
-
+  
     setSelectedFilters(filtersFromUrl);
+  
+    if (params.toString()) {
+      getSchools(params.toString());
+    } else {
+      getSchools('');
+    }
+  
+    // Solo expandir los filtros la primera vez que se cargan
+    if (expandedFilter.size === 0) {
+      const expandedIndices = new Set<number>();
+      params.forEach((_, key) => {
+        const filterIndex = filters.findIndex(f => f.type === key);
+        if (filterIndex !== -1) {
+          expandedIndices.add(filterIndex);
+        }
+      });
+      setExpandedFilter(expandedIndices);
+    }
   }, [location.search]);
 
   return (

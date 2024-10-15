@@ -3,6 +3,7 @@ import { validateSchema } from "../middlewares/validateSchema";
 import { loginSchema, regisSchema } from "../schema/auth.schema";
 import { openConnection } from "../middlewares/openConnection";
 import { login, logout, register } from "../controllers/auth.controller";
+import { loginLimit } from "../middlewares/rateLimit";
 
 const router:Router = Router()
 
@@ -11,7 +12,7 @@ router.post('/register', validateSchema(regisSchema), openConnection, register)
 //Validate email user
 router.post('/verifyEmail', )
 //Login
-router.post('/login', validateSchema(loginSchema), openConnection, login)
+router.post('/login', loginLimit, validateSchema(loginSchema), openConnection, login)
 //Logout
 router.post('/logout', openConnection, logout)
 

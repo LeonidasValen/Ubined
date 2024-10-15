@@ -1,4 +1,4 @@
-.mainConfig{
+.mainConfig {
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -6,7 +6,13 @@
     margin: 2rem auto;
 }
 
-.configAside{
+.configContainer {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 1rem;
+}
+
+.configAside {
     display: flex;
     flex-direction: column;
     background: var(--bgColorContent);
@@ -21,22 +27,23 @@
     color: var(--Font);
 }
 
-.btnConfig{
+.btnConfig {
     background: transparent;
     display: flex;
     align-items: center;
     justify-content: start;
-    padding: 10px ;
+    padding: 10px;
     border: 0;
     font-size: 15px;
     font-weight: 500;
     gap: .5rem;
 }
-.btnConfig:not(:last-child){
+
+.btnConfig:not(:last-child) {
     border-bottom: 1px solid var(--borderSeparation);
 }
 
-.configContent{
+.configContent {
     background: var(--bgColorContent);
     display: flex;
     flex-direction: column;
