@@ -1,0 +1,129 @@
+.footerContent{
+    background: var(--bgColorContent);
+    width: 100%;
+    padding: 2rem;
+    margin-top: 2rem;
+    color: var(--Font);
+    border-top: 1px solid var(--borderSeparation);
+}
+
+.footerSection{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.footerInfo{
+    display: flex;
+    justify-content: space-between;
+    max-width: 1600px;
+    color: #4b4b4b;
+}
+
+.footerLogo{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.fLogo{
+    display: flex;
+    align-items: end;
+    margin-bottom: 10px;
+}
+
+.fLogo h1{
+    font-size: 2rem;
+    color: #37b160;
+}
+
+.fLogo img{
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.footerLogo p{
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.footerLinks{
+    display: flex;
+    justify-content: space-around;
+    align-items: self-start;
+    text-align: start;
+    flex-direction: row;
+    flex: 2;
+}
+
+.footerLinks h2{
+    position: relative;
+    font-size: 1.4rem;
+    margin-bottom: 0.6rem;
+    color: #000000;
+}
+.footerLinks h2::before{
+    content: '';
+    width: 64px;
+    height: 2px;
+    position: absolute;
+    background: #37b160;
+    bottom: -2px;
+}
+
+.footerLinks a{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #4b4b4b;
+    font-size: 16px;
+    font-weight: 400;
+}
+.footerLinks a:hover{
+    text-decoration: underline;
+}
+
+.footerLinks ul{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.footerLinks li{
+    font-size: 16px;
+    font-weight: 450;
+}
+
+.fCopyRight{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #c9d1c9;
+    font-weight: 500;
+}
+
+.fCopyRight .fRedSocial{
+    display: flex;
+    gap: 1rem;
+}
+
+.fRedSocial a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #000;
+    background: #fff;
+    font-size: 20px;
+    transition: all 0.3s ease-in-out;
+}
+.fRedSocial a:hover{
+    background: #0ea13f;
+    color: #fff;
+}

@@ -4,6 +4,7 @@ export interface School {
     NameSchool: string;
     type: string;
     nivel: string;
+    horary: string;
     desc: string;
     provincia: string;
     localidad: string;
