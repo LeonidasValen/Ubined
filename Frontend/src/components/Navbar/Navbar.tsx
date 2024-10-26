@@ -43,15 +43,15 @@ export function Navbar() {
                     <LogoBook />
                 </Link>
                 {
-                    isAuthenticated && user ? (
-                        loading ? (
-                            <div className='loadingProfile'>
-                                <div className='imgLoading'></div>
-                                <div className='loadingText'></div>
-                            </div>
-                        ) : (
+                    loading ? (
+                        <div className='loadingProfile'>
+                            <div className='imgLoading'></div>
+                            <div className='loadingText'></div>
+                        </div>
+                    ) : (
+                        isAuthenticated && user ? (
                             <div className='support'>
-                                <Link to={'/config/editInsti'}>Carga tu instituto</Link>
+                                <Link to={'/schoolForm'}>Carga tu instituto</Link>
                                 <div className='profileDropdown' onClick={() => setDropMenu(!dropMenu)} aria-expanded={dropMenu}>
                                     <div className="pdBtn">
                                         <div className='pdImg'>
@@ -76,12 +76,12 @@ export function Navbar() {
                                     }
                                 </div>
                             </div>
+                        ) : (
+                            <div className="support">
+                                <Link to={'/config/help'}>Soporte</Link>
+                                <Link to={'/login'}>Soy secretario</Link>
+                            </div>
                         )
-                    ) : (
-                        <div className="support">
-                            <Link to={'/config/help'}>Soporte</Link>
-                            <Link to={'/login'}>Soy secretario</Link>
-                        </div>
                     )
                 }
             </header>

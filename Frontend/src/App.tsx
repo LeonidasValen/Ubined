@@ -14,6 +14,7 @@ import { Configuration } from "./pages/Config/components/configuration/Configura
 import { Security } from "./pages/Config/components/security/Security"
 import { EditInsti } from "./pages/Config/components/editInsti/EditInsti"
 import { PoliticsPrivacity } from "./pages/Config/components/politicsPrivacity/PoliticsPrivacity"
+import { SchoolForm } from "./pages/SchoolForm/CreateSchool/SchoolForm"
 
 function App() {
 
@@ -34,6 +35,10 @@ function App() {
         {
           path: '/school/:schoolId',
           element: <DetailSchool/>
+        },
+        {
+          path: '/schoolForm',
+          element: <SchoolForm/>
         },
         {
           path: '/config',

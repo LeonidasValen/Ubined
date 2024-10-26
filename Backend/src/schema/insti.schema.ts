@@ -7,4 +7,6 @@ export const instiFilterSchema = z.object({
         .union([z.string(), z.array(z.string())]).optional(),
     tipo: z
         .union([z.string(), z.array(z.string())]).optional(),
+    searchUser: 
+        z.string().optional()
 }).strict();
