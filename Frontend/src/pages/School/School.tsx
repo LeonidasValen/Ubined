@@ -7,9 +7,9 @@ export function School() {
   return (
     <main className="schoolsContainer">
       <div className="listContainer">
-        <Filter />
+        <Filter/>
         <section className="listSchool">
-          <Search />
+          <Search/>
           <div className="listSchools">
             <ListSchool />
           </div>

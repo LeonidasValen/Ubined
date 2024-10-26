@@ -1,0 +1,21 @@
+{
+    "name": "Ubined",
+    "short_name": "Ubined",
+    "description": "Ubidec perimite saber las ubicaciones e informacion de las propias instituciones",
+    "icons":[
+        {
+            "src": "./img/Logo-Ubined.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "./img/Logo-Ubined.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "start_url":"index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff"
+}

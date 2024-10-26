@@ -54,7 +54,7 @@ export const SchoolColum1: React.FC<SchoolColum1Props> = ({ provincia, localidad
             <h2>Redes</h2>
             <div className="redes">
               {socialMedia.map(red =>(
-                <a href={red.link} className={`itemRedSocial ${red.type}`} key={`redID ${red.type}`}><img src={`/./icons/${red.icon}`} alt="" />{red.type}</a>
+                <a href={red.link} className={`itemRedSocial ${red.type}`} target="_blanck" key={`redID ${red.type}`}><img src={`/./icons/${red.icon}`} alt="" />{red.type}</a>
               ))}
             </div>
           </article>

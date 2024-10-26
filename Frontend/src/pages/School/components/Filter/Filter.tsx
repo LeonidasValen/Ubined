@@ -107,7 +107,6 @@ export function Filter() {
     });
   
     setSelectedFilters(filtersFromUrl);
-  
     if (params.toString()) {
       getSchools(params.toString());
     } else {

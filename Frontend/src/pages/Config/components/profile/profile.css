@@ -1,0 +1,48 @@
+.profile{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pData{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.userInfo{
+    display: flex;
+    flex-direction: column;
+}
+
+.imgProfile img{
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.userInfo h1{
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.userInfo span{
+    font-weight: 500;
+    display: flex;
+    gap: .2rem;
+    color: #4b4b4b;
+}
+
+.profile button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: none;
+    background: #3b3c3f;
+    color: var( --FontContrast)
+}

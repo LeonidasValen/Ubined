@@ -6,11 +6,15 @@ export const getSchools = async (req: Request, res: Response): Promise<void> => 
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 10;
     const offset = (page - 1) * limit;
+
+    //buscador
+    const { search = '' } = req.query as { search: string };
     
     //obtiene los filtros
     const horario = req.query.horario as string | string[];
     const nivel = req.query.nivel as string | string[];
     const tipo = req.query.tipo as string | string[];
+    console.log(search)
 
     // guarda arrays para las cláusulas WHERE y los parámetros de la consulta
     const whereClauses: string[] = [];
@@ -28,6 +32,11 @@ export const getSchools = async (req: Request, res: Response): Promise<void> => 
     if (horario) addFilter('institucion.horary', horario);
     if (nivel) addFilter('institucion.nivel', nivel);
     if (tipo) addFilter('institucion.type', tipo);
+
+    if (search) {
+        queryParams.push(`%${search}%`, `%${search}%`);
+        whereClauses.push(`(institucion.name_insti LIKE ? OR institucion.descrip LIKE ?)`);
+    }
 
     const whereClause = whereClauses.length > 0 ? `WHERE ${whereClauses.join(' AND ')}` : ''; //si hay clausulas se agrega WHERE y separa con AND si hay mas de una clausula
 
