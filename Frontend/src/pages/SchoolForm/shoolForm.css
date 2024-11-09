@@ -1,0 +1,197 @@
+.schoolFormContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.schoolFormContainer button{
+    background: #179f22;
+    color: white;
+    padding: 12px 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: 0.2s;
+}
+.schoolFormContainer button:hover{
+    background: #0c7911;
+}
+
+.schoolForm{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    max-width: 1800px;
+    width: 100%;
+    margin-inline: auto;
+}
+
+.schoolForm h2{
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.schoolForm input, .schoolForm select, .schoolForm textarea{
+    border-radius: 6px;
+    padding: 6px  8px;
+    border: 1px solid #c9c9c9;
+}
+
+.formColum{
+    display: flex;
+    flex-direction: column;
+    background: var(--bgColorContent);
+    height: fit-content;
+    padding: 1rem;
+    border: 1px solid var(--borderSeparation);
+    border-radius: 1rem;
+}
+
+/* FORMULARIO GENERAL */
+
+.gPhotoInstitute.Form{
+    flex-direction: column;
+    background: #f8f8f8;
+    border: #c9c9c9 solid 1px;
+    padding: 1rem;
+    height: 200px;
+}
+
+.schoolForm .sGeneralForm{
+    width: 22%;
+    gap: .6rem;
+}
+
+.sGeneralForm label{
+    font-weight: 600;
+}
+
+.gFormDirection{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.gFormDirection .formInput{
+    display: flex;
+    flex-direction: column;
+}
+
+.formCoctacts{
+    display: flex;
+    flex-direction: column;
+}
+
+.formCoctacts .contactsInput{
+    display: flex;
+    flex-direction: column;
+}
+
+.contactsInput .inputCoctact{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.inputCoctact input{
+    padding: 6px 2.1rem;
+    width: 100%;
+}
+.inputCoctact svg{
+    position: absolute;
+    margin-left: 5px;
+}
+
+.gFormSocial{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.gFormSocial .socialInput{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.socialInput input{
+    padding: 6px 2.2rem;
+    width: 100%;
+}
+.socialInput svg{
+    position: absolute;
+    margin-left: 5px;
+}
+
+/* FORMULARIO PRINCIPAL */
+
+.schoolForm .sPrincipalForm{
+    width: 77%;
+    gap: 1.6rem;
+}
+
+.sPrincipalForm h2{
+    margin-bottom: 10px;
+}
+
+.sPrincipalForm .inputTitle{
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.dataInpus{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.dataInpus li{
+    display: flex;
+    gap: .5rem;
+    align-items: baseline;
+}
+
+.dataInpus .horaryChecks{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+.horaryChecks .horaryCheck{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.pDescForm textarea{
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    width: 100%;
+    min-height: 150px; 
+    padding: 10px;
+    resize: none;
+    field-sizing: content;
+}
+
+.column-info.row1{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.column-info.row1 input{
+    padding: 4px 5px;
+}
+
+.requeriments{
+    display: flex;
+    flex-direction: column;
+}
+.requeriments textarea{
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    width: 100%;
+    min-height: 1rem; 
+    padding: 5px 10px;
+    resize: none;
+    field-sizing: content;
+}

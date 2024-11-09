@@ -52,7 +52,7 @@ export function Navbar() {
                         isAuthenticated && user ? (
                             <div className='support'>
                                 <Link to={'/schoolForm'}>Carga tu instituto</Link>
-                                <div className='profileDropdown' onClick={() => setDropMenu(!dropMenu)} aria-expanded={dropMenu}>
+                                <div className='profileDropdown' onClick={() => setDropMenu(!dropMenu)}>
                                     <div className="pdBtn">
                                         <div className='pdImg'>
                                             {user?.profile

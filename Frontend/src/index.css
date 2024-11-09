@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,300..800&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
-*{
+* {
     font-family: 'Open Sans', sans-serif;
     font-family: 'Ubuntu', sans-serif;
     font-family: 'Poppins', sans-serif;
@@ -9,34 +9,36 @@
     box-sizing: border-box;
 }
 
-html{
+html {
     overflow-x: hidden;
 }
 
-body{
+body {
     min-height: 100vh;
 }
 
-main{
-    min-height: 54vh;
+.app {
+    min-height: 100dvh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
 }
 
-.app{
+.app {
     --bgColor: #f7fafc;
     --bgUiColor: #1bb10c;
     --bgColorContent: #ffffff;
     --bgGradientColor: linear-gradient(-45deg, #1f8656 0%, #18d158 100%);
     --Font: #0d0d0e;
-    --FontColor: #0ba853;
+    --FontColor: #199f46;
     --FontContrast: #fff;
     --FontGray: rgb(129, 129, 129);
     --borderColor: rgb(11 171 95);
     --borderSeparation: #e8e8e8;
-    --borderSeparation2:#e5e7eb;
+    --borderSeparation2: #e5e7eb;
     --boxShadow: rgba(145, 158, 171, 0.2) 0px 0px 2px 0px, rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
 }
 
-.app.dark-mode{
+.app.dark-mode {
     --bgColor: #131827;
     --bgUiColor: #826cf9;
     --bgColorContent: #212937;
@@ -47,36 +49,39 @@ main{
     --FontGray: #a9a9a9;
     --borderColor: #3b0c72;
     --borderSeparation: rgb(55 65 81 / 0.6);
-    --borderSeparation2:rgb(202, 202, 202);
+    --borderSeparation2: rgb(202, 202, 202);
 }
 
-.app{
+.app {
     background-color: var(--bgColor);
     color: var(--Font);
     min-height: 100vh;
 }
 
-h1, h2, h3, h4{
+h1,
+h2,
+h3,
+h4 {
     text-wrap: balance;
 }
 
-p{
+p {
     text-wrap: pretty;
 }
 
-a{
+a {
     color: var(--Font);
     text-decoration: none;
 }
 
-ul{
+ul {
     list-style: none;
 }
 
-button{
+button {
     cursor: pointer;
 }
 
-img{
+img {
     max-height: 100%;
 }

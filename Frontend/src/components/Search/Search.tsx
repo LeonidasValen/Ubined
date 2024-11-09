@@ -43,7 +43,7 @@ export function Search() {
     return (
         <div className="searchSchool">
             <div className="sIntitucion">
-                <button onClick={handleSearch}><IconSearch /></button>
+                <button onClick={handleSearch} aria-label="Search"><IconSearch /></button>
                 <input type="text" placeholder="Buscar institucion" value={search} onChange={e => setSearch(e.target.value)} onKeyDown={handleKeyDown} />
             </div>
             <div className="select">

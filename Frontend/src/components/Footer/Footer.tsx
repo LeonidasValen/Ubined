@@ -54,13 +54,13 @@ export function Footer() {
                 <div className='fCopyRight'>
                     <span>© 2024 Ubined. Todos los derechos reservados.</span>
                     <div className='fRedSocial'>
-                        <a href='https://www.facebook.com/ubined.es/' target='_blank' rel="noreferrer">
+                        <a href='https://www.facebook.com/ubined.es/' target='_blank' rel="noreferrer" aria-label='Link Facebook from Ubined'>
                             <IconFacebook />
                         </a>
-                        <a href='https://www.instagram.com/ubined_es/' target='_blank' rel="noreferrer">
+                        <a href='https://www.instagram.com/ubined_es/' target='_blank' rel="noreferrer" aria-label='Link Instagram from Ubined'>
                             <IconInstagram />
                         </a>
-                        <a href='https://twitter.com/ubined_es' target='_blank' rel="noreferrer">
+                        <a href='https://twitter.com/ubined_es' target='_blank' rel="noreferrer" aria-label='Link Twitter from Ubined'>
                             <IconTwitter />
                         </a>
                     </div>

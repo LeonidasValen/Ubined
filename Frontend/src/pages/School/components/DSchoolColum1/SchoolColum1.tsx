@@ -16,10 +16,11 @@ export interface Social {
   link: string;
 }
 
+
 export const SchoolColum1: React.FC<SchoolColum1Props> = ({ provincia, localidad, address, phone, email, web, socialMedia }) => {
 
   return (
-    <section className="sInfoGeneral">
+    <section className="sInfoGeneral sInfoColumn">
       <header className="gPhotoInstitute">
         <img src="/./img/escuela-reference.jpg" alt="" />
       </header>
@@ -49,11 +50,11 @@ export const SchoolColum1: React.FC<SchoolColum1Props> = ({ provincia, localidad
         </div>
       </div>
       {
-        socialMedia.length > 0 &&( 
+        socialMedia.length > 0 && (
           <article className="gRedsocial">
             <h2>Redes</h2>
             <div className="redes">
-              {socialMedia.map(red =>(
+              {socialMedia.map(red => (
                 <a href={red.link} className={`itemRedSocial ${red.type}`} target="_blanck" key={`redID ${red.type}`}><img src={`/./icons/${red.icon}`} alt="" />{red.type}</a>
               ))}
             </div>

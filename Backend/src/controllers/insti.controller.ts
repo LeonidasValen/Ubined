@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { InstiRow, InstiRowArticle } from "../interface/insti.interface";
 
-export const getSchools = async (req: Request, res: Response): Promise<void> => {
+export const getSchools = async (req: Request, res: Response): Promise<InstiRowArticle[] | null> => {
     //Paginacion dei instituciones
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 10;
@@ -9,12 +9,11 @@ export const getSchools = async (req: Request, res: Response): Promise<void> => 
 
     //buscador
     const { search = '' } = req.query as { search: string };
-    
+
     //obtiene los filtros
     const horario = req.query.horario as string | string[];
     const nivel = req.query.nivel as string | string[];
     const tipo = req.query.tipo as string | string[];
-    console.log(search)
 
     // guarda arrays para las cláusulas WHERE y los parámetros de la consulta
     const whereClauses: string[] = [];
@@ -27,7 +26,7 @@ export const getSchools = async (req: Request, res: Response): Promise<void> => 
         const conditions = arrayFilter.map(() => `${field} LIKE ?`); //para cada valor de la array se genera condicion "LIKE ?". [institucion.horary, institucion.type] -> (institucion.horary LIKE ? OR institucion.type LIKE ?)
         whereClauses.push(`(${conditions.join(' OR ')})`);// despues de la condicion LIKE ? se agrega el OR
     };
-    
+
     // aplica filtros si estan presentes
     if (horario) addFilter('institucion.horary', horario);
     if (nivel) addFilter('institucion.nivel', nivel);
@@ -70,7 +69,7 @@ export const getSchools = async (req: Request, res: Response): Promise<void> => 
 
         if (sql.length === 0) {
             res.status(404).json({ message: 'No se encontraron instituciones' });
-            return
+            return null
         }
 
         // Formatea los resultados
@@ -90,13 +89,15 @@ export const getSchools = async (req: Request, res: Response): Promise<void> => 
         });
 
         res.status(200).json(insti);
+        return insti as InstiRowArticle[];
     } catch (error) {
         console.error('Error al traer las escuelas:', error);
         res.status(500).json({ message: 'Error en el servidor al obtener las escuelas' });
+        return null;
     }
 }
 
-export const getSchool = async (req: Request, res: Response): Promise<void> => {
+export const getSchool = async (req: Request, res: Response): Promise<InstiRow[] | null> => {
     const { id } = req.params
     try {
         const [sql] = await req.db!.query<InstiRow[]>(
@@ -130,13 +131,13 @@ export const getSchool = async (req: Request, res: Response): Promise<void> => {
                 insti_have.dining_room,
                 insti_have.food_sr,
 
-        GROUP_CONCAT(DISTINCT type_redsocial.icon ORDER BY type_redsocial.id) AS iconRed,
-        GROUP_CONCAT(DISTINCT type_redsocial.type ORDER BY type_redsocial.id) AS typeRed,
-        GROUP_CONCAT(DISTINCT insti_social.link ORDER BY insti_social.id) AS link,
+            GROUP_CONCAT(DISTINCT type_redsocial.icon ORDER BY type_redsocial.id) AS iconRed,
+            GROUP_CONCAT(DISTINCT type_redsocial.type ORDER BY type_redsocial.id) AS typeRed,
+            GROUP_CONCAT(DISTINCT insti_social.link ORDER BY insti_social.id) AS link,
 
 
-        GROUP_CONCAT(DISTINCT modalidades.icon ORDER BY modalidades.id) AS iconMod,
-        GROUP_CONCAT(DISTINCT modalidades.modalidad ORDER BY modalidades.id) AS modalidad
+            GROUP_CONCAT(DISTINCT modalidades.icon ORDER BY modalidades.id) AS iconMod,
+            GROUP_CONCAT(DISTINCT modalidades.modalidad ORDER BY modalidades.id) AS modalidad
 
 
             FROM
@@ -157,11 +158,13 @@ export const getSchool = async (req: Request, res: Response): Promise<void> => {
                 modalidades ON modalidades.id = insti_mod.id_modalidad
             WHERE
                 institucion.id = ?
+            GROUP BY 
+                institucion.id;
             `, [id])
 
         if (sql.length === 0) {
             res.status(404).json({ message: 'No se encontro la escuela' });
-            return
+            return null
         }
 
         const instiMap = sql.map(row => ({
@@ -205,8 +208,10 @@ export const getSchool = async (req: Request, res: Response): Promise<void> => {
         }))
 
         res.status(200).json(instiMap);
+        return instiMap as InstiRow[];
     } catch (error) {
         console.error('Error al traer las escuelas:', error);
         res.status(500).json({ message: 'Error en el servidor al obtener las escuelas' });
+        return null;
     }
 }

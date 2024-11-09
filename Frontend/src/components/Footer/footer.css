@@ -35,7 +35,7 @@
 
 .fLogo h1{
     font-size: 2rem;
-    color: #37b160;
+    color: var(--FontColor);
 }
 
 .fLogo img{
@@ -55,6 +55,7 @@
     align-items: self-start;
     text-align: start;
     flex-direction: row;
+    gap: 2rem;
     flex: 2;
 }
 
@@ -126,4 +127,22 @@
 .fRedSocial a:hover{
     background: #0ea13f;
     color: #fff;
+}
+
+@media screen and (max-width: 1100px){
+    .footerSection{
+        align-items: normal;
+    }
+    .footerInfo{
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    .footerLogo{
+        max-width: 550px;
+    }
+    .footerLinks{
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 3rem;
+    }
 }
