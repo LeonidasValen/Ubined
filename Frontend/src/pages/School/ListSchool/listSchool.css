@@ -32,7 +32,7 @@
     justify-content: space-between;
 }
 
-.sTitle h3{
+.sTitle h2{
     color: rgb(9, 9, 11);
     font-weight: 700;
     font-size: 1.25rem;
@@ -54,7 +54,7 @@
 }
 .sTitle .sType.Privada{
     color: #fff;
-    background: rgb(21 143 213);
+    background: rgb(18, 126, 189);
 }
 
 .sInfo p{

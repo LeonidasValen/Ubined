@@ -1,9 +1,22 @@
+.schoolLoader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin: auto;
+}
+.schoolLoader span {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
 .schoolInfoContent {
     position: relative;
     display: flex;
     justify-content: space-between;
     padding: 1rem;
     max-width: 1800px;
+    width: 100%;
     margin-inline: auto;
 }
 
@@ -23,19 +36,22 @@
     margin-bottom: 0 !important;
 }
 
-/* COLUMNA IZQUIRDA GENERAL */
-
-.sInfoGeneral {
+.sInfoColumn{
     display: flex;
     flex-direction: column;
     background: var(--bgColorContent);
-    width: 22%;
     height: fit-content;
     padding: 1rem;
     border: 1px solid var(--borderSeparation);
     border-radius: 1rem;
-    gap: .6rem;
     overflow: hidden;
+}
+
+/* COLUMNA IZQUIRDA GENERAL */
+
+.sInfoGeneral {
+    width: 22%;
+    gap: .6rem;
 }
 
 .gPhotoInstitute {
@@ -47,6 +63,7 @@
     max-height: 350px;
     border-radius: 10px;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .gPhotoInstitute img {
@@ -123,15 +140,8 @@
 /* COLUMNA DERECHA PRINCIPAL */
 
 .sInfoPrincipal {
-    display: flex;
-    flex-direction: column;
-    background: var(--bgColorContent);
     width: 77%;
-    padding: 1rem;
-    border: 1px solid var(--borderSeparation);
-    border-radius: 1rem;
     gap: 1.6rem;
-    overflow: hidden;
 }
 
 .pTitleSchool {
@@ -237,7 +247,7 @@
     }
 }
 
-@media screen and (max-width: 1080px) {
+@media screen and (max-width: 1040px) {
     .redes {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
@@ -253,7 +263,7 @@
     }
 }
 
-@media screen and (max-width: 990px) {
+@media screen and (max-width: 1080px) {
     .dataSchool {
         flex-direction: column;
     }

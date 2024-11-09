@@ -1,15 +1,16 @@
 import { RowDataPacket } from "mysql2";
 
 export interface InstiRowArticle extends RowDataPacket {
-    postId: number;
-    userId: number;
-    name_insti: string;
-    type: string;
-    nivel: string;
-    desc: string;
-    provincia: string;
-    localidad: string;
-    address: string;
+    schoolId: number,
+    provincia: string,
+    localidad: string,
+    NameSchool: string,
+    type: string,
+    horary: string,
+    nivel: string,
+    desc: string,
+    address: string,
+    creationAt: Date,
 }
 
 export interface InstiRow extends RowDataPacket {

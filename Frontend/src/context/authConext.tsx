@@ -99,6 +99,7 @@ export const AuthProvider: React.FC<AuthProviderProp> = ({ children }) => {
                 if (!res) {
                     setAuthenticated(false);
                     localStorage.removeItem('session_username');
+                    logout();
                 } else {
                     setAuthenticated(true);
                     setUser(res.user);
@@ -107,6 +108,7 @@ export const AuthProvider: React.FC<AuthProviderProp> = ({ children }) => {
                 setAuthenticated(false);
                 setUser(null);
                 localStorage.removeItem('session_username');
+                logout();
                 setLoading(false)
             }
         } else {

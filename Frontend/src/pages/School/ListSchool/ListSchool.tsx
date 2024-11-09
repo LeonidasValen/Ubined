@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useSchool } from '../../../context/schoolContext';
-import './listSchool.css'
 import { IconClock, IconSchool } from '../../../assets/Icons';
 import { Loader } from '../../../components/Loader/Loader';
+import './listSchool.css'
 
 export function ListSchool() {
 
@@ -30,13 +30,13 @@ export function ListSchool() {
         ? (
           schools.map((escuela) => (
             <article className='schoolContent' key={`School-${escuela.schoolId}`}>
-              <Link to={`/school/${escuela.schoolId}`} className="sMiniature">
+              <Link to={`/school/${escuela.schoolId}`} className="sMiniature" aria-label='Deatails to school'>
                 <img src="/./img/escuela-reference.jpg" alt="" />
               </Link>
 
-              <Link to={'/school/1'} className="sInfo">
+              <Link to={`/school/${escuela.schoolId}`} className="sInfo" aria-label='Deatails to school'>
                 <div className='sTitle'>
-                  <h3>{escuela.NameSchool}</h3>
+                  <h2>{escuela.NameSchool}</h2>
                   <p className={`sType ${escuela.type}`}>{escuela.type}</p>
                 </div>
                 <div className='sInfoContent'>

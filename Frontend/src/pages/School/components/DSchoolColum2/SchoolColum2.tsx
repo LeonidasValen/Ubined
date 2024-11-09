@@ -29,7 +29,7 @@ interface Modalities {
 
 export const SchoolColum2: React.FC<SchoolColum2Props> = ({ nameSchool, type, cue, nivel, horary, desc, modalities, director, subdirector, secretario, team_ori, center_st, library, yard, dining_room, food_sr, requirement }) => {
   return (
-    <section className="sInfoPrincipal">
+    <section className="sInfoPrincipal sInfoColumn">
       <h1 className="pTitleSchool">{nameSchool}</h1>
       <div className="pInfoSchool">
         <h2>Información principal</h2>
@@ -78,7 +78,7 @@ export const SchoolColum2: React.FC<SchoolColum2Props> = ({ nameSchool, type, cu
             <IconSchool />
             <h2 className="tittleNoMargin">Directivos a cargo</h2>
           </div>
-          <ul className="column-info row1">
+          <ul className="column-info">
             <li>
               <span>Director:</span><p>{director}</p>
             </li>
@@ -95,7 +95,7 @@ export const SchoolColum2: React.FC<SchoolColum2Props> = ({ nameSchool, type, cu
             <IconStudent />
             <h2 className="tittleNoMargin">¿Con que cuenta?</h2>
           </div>
-          <ul className="column-info row2">
+          <ul className="column-info">
             <li><span>Equipo de orientacion:</span><p>{team_ori ? '✓' : '✗'}</p></li>
             <li><span>Centro de estudiantes:</span><p>{center_st ? '✓' : '✗'}</p></li>
             <li><span>Biblioteca:</span><p>{library ? '✓' : '✗'}</p></li>
