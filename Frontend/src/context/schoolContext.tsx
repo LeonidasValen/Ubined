@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useCallback, useContext, useState } from "react";
 import { useAxios } from "../hooks/useAxios";
 import { DetailSchool, School } from "./interface/school";
 
@@ -34,7 +34,7 @@ export const SchoolProvider: React.FC<SchoolProvider> = ({ children }) => {
 
     const [school, setSchool] = useState<DetailSchool[]>([])
 
-    const getSchools = async (filter:string) => {
+    const getSchools = useCallback(async (filter:string) => {
         setSchools([]);
         try {
             const res = await fetchData({
@@ -45,9 +45,9 @@ export const SchoolProvider: React.FC<SchoolProvider> = ({ children }) => {
         } catch (error) {
             console.error(error);
         }
-    };
+    }, [fetchData]);
 
-    const getSchool = async (id: number) => {
+    const getSchool = useCallback(async (id:number) => {
         setSchool([]);
         try {
             const res = await fetchData({
@@ -58,7 +58,7 @@ export const SchoolProvider: React.FC<SchoolProvider> = ({ children }) => {
         } catch (error) {
             console.error(error);
         }
-    };
+    }, [fetchData]);
 
     return (
         <SchoolContext.Provider value={{ getSchools, getSchool, schools, school, loading, error }}>

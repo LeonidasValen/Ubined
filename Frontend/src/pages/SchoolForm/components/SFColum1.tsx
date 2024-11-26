@@ -1,14 +1,22 @@
-import { useEffect} from "react";
+import { useEffect, useState } from "react";
 import { IconCamera, IconEmail, IconFacebook, IconInstagram, IconPhone, IconTwitter, IconYoutube } from "../../../assets/Icons";
 import { useAxios } from "../../../hooks/useAxios";
-import { Localidad, Provincia } from "../interface/FormSchool";
+import { FormData, Localidad, Provincia } from "../interface/FormSchool";
 
+interface SFColum1Props {
+  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
+  formData: FormData;
+}
 
+export function SFColum1({ setFormData, formData }: SFColum1Props) {
 
-export function SFColum1({localidades, setLocalidad, provincias, setProvincia}: {localidades: Localidad[], setLocalidad: React.Dispatch<React.SetStateAction<Localidad[]>>, provincias: Provincia[], setProvincia: React.Dispatch<React.SetStateAction<Provincia[]>>}) {
+  console.log(formData);
 
   const { fetchData } = useAxios();
 
+  //Formulario institutos
+  const [provincias, setProvincia] = useState<Provincia[]>([]);
+  const [localidades, setLocalidad] = useState<Localidad[]>([]);
 
   useEffect(() => {
     const getProvincias = async () => {
@@ -39,10 +47,23 @@ export function SFColum1({localidades, setLocalidad, provincias, setProvincia}: 
 
   const handleProvincia = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const id = Number(e.target.value);
+    setFormData((prevData) => ({
+      ...prevData,
+      id_provincia: id,
+      id_localidad: 0 // Reinicia el id_localidad si cambian la provincia
+    }));
     setLocalidad([]);
     if (id) {
       getLocalidades(id);
     }
+  };
+
+  const handleLocalidad = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const id = Number(e.target.value);
+    setFormData((prevData) => ({
+      ...prevData,
+      id_localidad: id,
+    }));
   };
 
   return (
@@ -58,24 +79,20 @@ export function SFColum1({localidades, setLocalidad, provincias, setProvincia}: 
         <h2>Localización</h2>
         <div className="formInput">
           <label htmlFor="provincia">Provincia:</label>
-          <select name="provincia" id="provincia" onChange={(e) => handleProvincia(e)}>
+          <select name="provincia" id="provincia" onChange={handleProvincia}>
             <option value="">Selecciona la provincia</option>
-            {
-              provincias.map((pro: Provincia) => (
-                <option value={pro.id} key={pro.id}>{pro.provincia}</option>
-              ))
-            }
+            {provincias.map((pro: Provincia) => (
+              <option value={pro.id} key={pro.id}>{pro.provincia}</option>
+            ))}
           </select>
         </div>
         <div className="formInput">
           <label htmlFor="localidad">Localidad:</label>
-          <select name="localidad" id="localidad">
+          <select name="localidad" id="localidad" onChange={handleLocalidad}>
             <option value="">Selecciona la localidad</option>
-            {
-              localidades.map((loc: Localidad) => (
-                <option value={loc.id} key={loc.id}>{loc.localidad}</option>
-              ))
-            }
+            {localidades.map((loc: Localidad) => (
+              <option value={loc.id} key={loc.id}>{loc.localidad}</option>
+            ))}
           </select>
         </div>
         <div className="formInput">

@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from "react";
 import { useAxios } from "../hooks/useAxios";
 
 interface AuthContextProps {
@@ -19,14 +19,6 @@ interface User {
     email: string;
     rol: string;
 }
-
-// interface Profile {
-//     id: number;
-//     email: string;
-//     photo: string | null;
-//     rol: string;
-//     title: string;
-// }
 
 export const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
@@ -55,40 +47,38 @@ export const AuthProvider: React.FC<AuthProviderProp> = ({ children }) => {
     // <-- AUTH -->
 
     //register
-    const signUp = async (user: Partial<User>) => {
+    const signUp = useCallback(async (user: Partial<User>) => {
         await fetchData({
             url: '/auth/register',
             method: 'post',
             data: user,
         });
-    };
+    }, [fetchData]);
 
-    const signIn = async (user: Partial<User>) => {
+    const signIn = useCallback(async (user: Partial<User>) => {
         const res = await fetchData({
             url: '/auth/login',
             method: 'post',
             data: user,
         });
-
-        setUser(res)
+        setUser(res);
         localStorage.setItem('session_username', res.title);
-        setAuthenticated(true)
-    };
+        setAuthenticated(true);
+    }, [fetchData]);
 
-    const logout = async () => {
+    const logout = useCallback(async () => {
         await fetchData({
             url: '/auth/logout',
             method: 'post',
         });
-
-        setUser(null)
+        setUser(null);
         localStorage.removeItem('session_username');
-        setAuthenticated(false)
-    };
+        setAuthenticated(false);
+    }, [fetchData]);
 
     // <-- USER -->
 
-    const checkLogin = async () => {
+    const checkLogin = useCallback(async () => {
         const storedUsername = localStorage.getItem('session_username');
         if (storedUsername) {
             try {
@@ -109,14 +99,14 @@ export const AuthProvider: React.FC<AuthProviderProp> = ({ children }) => {
                 setUser(null);
                 localStorage.removeItem('session_username');
                 logout();
-                setLoading(false)
+                setLoading(false);
             }
         } else {
             setAuthenticated(false);
             setUser(null);
-            setLoading(false)
+            setLoading(false);
         }
-    }
+    }, [fetchData, logout, setLoading]);
 
     //trae los datos del usuario
     useEffect(() => {

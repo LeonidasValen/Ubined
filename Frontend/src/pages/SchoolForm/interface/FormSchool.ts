@@ -14,3 +14,16 @@ export interface Offert {
     icon: string;
     modalidad: string;
 }
+
+export interface Modalidad {
+    id_modalidad: number;
+}
+
+export interface FormData {
+    id_provincia: number,
+    id_localidad: number,
+    address: string,
+    cue: number,
+    nivel: string,
+    horary: string,
+}
