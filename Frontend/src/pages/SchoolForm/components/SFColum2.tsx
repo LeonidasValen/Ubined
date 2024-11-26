@@ -3,18 +3,18 @@ import Select from "react-select";
 import { MultiValue } from "react-select";
 import { IconSchool, IconStudent } from "../../../assets/Icons";
 import { useAxios } from "../../../hooks/useAxios";
-import { Offert } from "../interface/FormSchool";
+import { Modalidad, Offert } from "../interface/FormSchool";
 
 interface SFColum2Props {
-  selectedOfferts: number[];
-  setSelectedOfferts: React.Dispatch<React.SetStateAction<number[]>>;
+  setSelectedOfferts: React.Dispatch<React.SetStateAction<Modalidad[]>>;
 }
 
-export function SFColum2({selectedOfferts, setSelectedOfferts}: SFColum2Props) {
+export function SFColum2({ setSelectedOfferts}: SFColum2Props) {
   const { fetchData } = useAxios();
 
   const [offerts, setOfferts] = useState<Offert[]>([])
 
+  //trae los modalidades
   useEffect(() => {
     const getModalities = async () => {
       try {
@@ -30,15 +30,14 @@ export function SFColum2({selectedOfferts, setSelectedOfferts}: SFColum2Props) {
     getModalities();
   }, [])
 
+  //Trae los ids de las modalidades seleccionadas
   const handleOfferts = (selectedOptions: MultiValue<{ value: number; label: JSX.Element }>) => {
-  // Extrae solo los ids de las modalidades seleccionadas
   const selectedModalities = selectedOptions.map(option => option.value);
 
-  // Estructura los datos para el backend
+  // Estructura los datos
   const dataToSend = selectedModalities.map(id_modalidad => ({id_modalidad}));
 
-  setSelectedOfferts(selectedModalities);
-  console.log(dataToSend); // Verifica que solo se imprimen los ids
+  setSelectedOfferts(dataToSend);
   };
 
   return (
@@ -56,7 +55,7 @@ export function SFColum2({selectedOfferts, setSelectedOfferts}: SFColum2Props) {
           </li>
           <li>
             <label htmlFor="cue">CUE:</label>
-            <input type="number" id="cue" placeholder="CUE" />
+            <input type="number" id="cue" placeholder="CUE" min={0}/>
           </li>
           <li>
             <label htmlFor="nivel">Nivel:</label>

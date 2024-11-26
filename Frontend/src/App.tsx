@@ -15,6 +15,7 @@ import { Security } from "./pages/Config/components/security/Security"
 import { EditInsti } from "./pages/Config/components/editInsti/EditInsti"
 import { PoliticsPrivacity } from "./pages/Config/components/politicsPrivacity/PoliticsPrivacity"
 import { SchoolForm } from "./pages/SchoolForm/CreateSchool/SchoolForm"
+import { AuthAuthenticated } from "./utils/auth"
 
 function App() {
 
@@ -30,24 +31,24 @@ function App() {
         },
         {
           path: '/schools',
-          element: <School/>
+          element: <School />
         },
         {
           path: '/school/:schoolId',
-          element: <DetailSchool/>
+          element: <DetailSchool />
         },
         {
           path: '/schoolForm',
-          element: <SchoolForm/>
+          element: <AuthAuthenticated><SchoolForm /></AuthAuthenticated>
         },
         {
           path: '/config',
-          element: <Config/>,
+          element: <Config />,
           children: [
             { path: '', element: <Configuration /> }, // Ruta por defecto
-            { path: 'profile', element: <Profile /> },
-            { path: 'security', element: <Security/> },
-            { path: 'editInsti', element: <EditInsti/> },
+            { path: 'profile', element: <AuthAuthenticated><Profile /></AuthAuthenticated> },
+            { path: 'security', element: <AuthAuthenticated><Security /></AuthAuthenticated> },
+            { path: 'editInsti', element: <AuthAuthenticated><EditInsti /></AuthAuthenticated> },
             { path: 'config', element: <Configuration /> },
             { path: 'help', element: <HelpSupport /> },
             { path: 'politicsPrivacity', element: <PoliticsPrivacity /> },
