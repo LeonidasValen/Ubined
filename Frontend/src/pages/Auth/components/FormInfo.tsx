@@ -1,5 +1,5 @@
-import { Logo } from '../../../assets/Logo'
-import { IconEmail, IconFacebook, IconInstagram, IconPhone, IconTwitter } from '../../../assets/Icons'
+import { Logo } from '@assets/Logo'
+import { IconEmail, IconFacebook, IconInstagram, IconPhone, IconTwitter } from '@assets/Icons'
 
 export function FormInfo() {
     return (

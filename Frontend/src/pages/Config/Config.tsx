@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom"
-import { ConfigNavigate } from "./components/ConfigNavigate"
+import { ConfigNavigate } from "@pages/Config/components/ConfigNavigate"
 import './config.css'
 
 export function Config() {

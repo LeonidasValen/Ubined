@@ -1,8 +1,8 @@
 import { ChangeEvent, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { FormInfo } from '../components/FormInfo'
-import { useAuth } from '../../../context/authConext'
-import { IconEye, IconEyeClose } from '../../../assets/Icons'
+import { FormInfo } from '@pages/Auth/components/FormInfo'
+import { useAuth } from '@context/authConext'
+import { IconEye, IconEyeClose } from '@assets/Icons'
 
 import '../auth.css'
 

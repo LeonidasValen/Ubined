@@ -1,6 +1,6 @@
 import { ReactNode, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/authConext";
+import { useAuth } from "@/context/authConext";
 
 interface AuthGuardProps {
     children: ReactNode;

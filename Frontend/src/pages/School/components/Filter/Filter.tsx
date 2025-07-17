@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { IconArrowDown, IconCheck } from '../../../../assets/Icons';
-import { useSchool } from '../../../../context/schoolContext';
+import { IconArrowDown, IconCheck } from '@assets/Icons';
+import { useSchool } from '@context/schoolContext';
 import './filter.css';
 
 interface Subfilter {

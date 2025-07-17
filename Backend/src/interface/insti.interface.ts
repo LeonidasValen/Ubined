@@ -13,6 +13,11 @@ export interface InstiRowArticle extends RowDataPacket {
     creationAt: Date,
 }
 
+interface ManagersAsigns {
+  cargo: string;
+  nombre: string;
+}
+
 export interface InstiRow extends RowDataPacket {
     schoolId: number;
     userId: number;
@@ -25,9 +30,6 @@ export interface InstiRow extends RowDataPacket {
     nivel: string;
     horary: string;
     desc: string;
-    director: string;
-    subdirector: string;
-    secretario: string;
     requirement: string;
     phone?: string;
     email: string;

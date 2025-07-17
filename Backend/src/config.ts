@@ -13,3 +13,7 @@ export const JWT_TOKEN = process.env.JWT_TOKEN;
 export const FREEPORT = process.env.FREEPORT; //Borrar en producción
 export const PORTFRONTEND = process.env.PORTFRONTEND;
 export const PORTFRONTENDTEST = process.env.PORTFRONTENDTEST;
+
+export const CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME; 
+export const CLOUD_API_KEY = process.env.CLOUDINARY_API_KEY; 
+export const CLOUD_API_SECRET = process.env.CLOUDINARY_API_SECRET; 

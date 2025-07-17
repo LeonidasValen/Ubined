@@ -11,6 +11,11 @@ export interface School {
     address: string;
 }
 
+export interface Cargos{
+  name: string;
+  position: string;
+}
+
 export interface DetailSchool {
     schoolId: number;
     userId: number;
@@ -26,6 +31,7 @@ export interface DetailSchool {
     director: string;
     subdirector: string;
     secretario: string;
+    cargos: Cargos[];
     requirement: string;
     phone?: string;
     email: string;
