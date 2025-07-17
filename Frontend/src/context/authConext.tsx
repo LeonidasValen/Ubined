@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from "react";
-import { useAxios } from "../hooks/useAxios";
+import { useAxios } from "@hooks/useAxios";
 
 interface AuthContextProps {
     signUp: (user: Partial<User>) => Promise<void>;

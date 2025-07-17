@@ -1,6 +1,6 @@
-import { Filter } from "./components/Filter/Filter"
-import { Search } from "../../components/Search/Search";
-import { ListSchool } from "./ListSchool/ListSchool";
+import { Filter } from "@pages/School/components/Filter/Filter";
+import { Search } from "@components/Search/Search";
+import { ListSchool } from "@pages/School/ListSchool/ListSchool";
 import './school.css'
 
 export function School() {

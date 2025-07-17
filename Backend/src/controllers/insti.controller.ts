@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { InstiRow, InstiRowArticle } from "../interface/insti.interface";
+import { UserIdInterface } from "../interface/user.interface";
 
 export const getSchools = async (req: Request, res: Response): Promise<InstiRowArticle[] | null> => {
     //Paginacion dei instituciones
@@ -43,7 +44,8 @@ export const getSchools = async (req: Request, res: Response): Promise<InstiRowA
         // Construye la consulta SQL con filtros y paginación
         const [sql] = await req.db!.query<InstiRowArticle[]>(
             `SELECT 
-                institucion.id, 
+                institucion.id,
+                institucion.id_user, 
                 provincias.provincia, 
                 institucion.id_provincia, 
                 localidades.localidad, 
@@ -115,9 +117,8 @@ export const getSchool = async (req: Request, res: Response): Promise<InstiRow[]
                 institucion.nivel, 
                 institucion.horary, 
                 institucion.descrip,
-                institucion.director,  
-                institucion.subdirector,  
-                institucion.secretario,  
+                directors.position,  
+                directors.name,   
                 institucion.requirements,
                 institucion.phone,
                 institucion.email,
@@ -130,6 +131,9 @@ export const getSchool = async (req: Request, res: Response): Promise<InstiRow[]
                 insti_have.yard,
                 insti_have.dining_room,
                 insti_have.food_sr,
+
+            GROUP_CONCAT(DISTINCT directors.name ORDER BY directors.id) AS nameDirec,
+            GROUP_CONCAT(DISTINCT directors.position ORDER BY directors.id) AS posiDirec, 
 
             GROUP_CONCAT(DISTINCT type_redsocial.icon ORDER BY type_redsocial.id) AS iconRed,
             GROUP_CONCAT(DISTINCT type_redsocial.type ORDER BY type_redsocial.id) AS typeRed,
@@ -156,6 +160,10 @@ export const getSchool = async (req: Request, res: Response): Promise<InstiRow[]
                 insti_mod ON insti_mod.id_insti = institucion.id
             LEFT JOIN
                 modalidades ON modalidades.id = insti_mod.id_modalidad
+            LEFT JOIN
+                insti_direc ON insti_direc.id_insti = institucion.id
+            LEFT JOIN
+                directors ON directors.id = insti_direc.id_director
             WHERE
                 institucion.id = ?
             GROUP BY 
@@ -195,6 +203,11 @@ export const getSchool = async (req: Request, res: Response): Promise<InstiRow[]
             dining_room: Boolean(row.dining_room),
             food_sr: Boolean(row.food_sr),
 
+            cargos: row.nameDirec ? row.posiDirec.split(',').map((_: number, i: string) => ({
+                name: row.nameDirec.split(',')[i],
+                position: row.posiDirec.split(',')[i]
+            })) : [],
+
             socialMedia: row.iconRed ? row.iconRed.split(',').map((icon: string, i: number) => ({
                 icon,
                 type: row.typeRed.split(',')[i],
@@ -213,5 +226,61 @@ export const getSchool = async (req: Request, res: Response): Promise<InstiRow[]
         console.error('Error al traer las escuelas:', error);
         res.status(500).json({ message: 'Error en el servidor al obtener las escuelas' });
         return null;
+    }
+}
+
+export const postSchool = async (req: UserIdInterface, res: Response) => {
+    try {
+
+        const userId = req.user?.userId;
+
+        const { nameSchool, address, phone, email, nivel, horary, descrip, id_provincia, id_localidad, schoolType, cue, requirement, team_ori, center_st, library, yard, dining_room, food_sr, managers, offerts, web, socialLink } = req.body;
+
+        console.log(nameSchool, address, phone, email, nivel, horary, descrip, id_provincia, id_localidad, schoolType, cue, requirement, team_ori, center_st, library, yard, dining_room, food_sr, managers, offerts, web, socialLink);
+
+        console.log(userId)
+
+        // const [sql] = await req.db!.query<InstiRow[]>(
+        //     `INSERT INTO
+        //         institucion (
+        //             id_user,
+        //             id_provincia,
+        //             id_localidad,
+        //             address,
+        //             name_insti,
+        //             type,
+        //             cue,
+        //             nivel,
+        //             horary,
+        //             descrip,
+        //             requirements,
+        //             phone,
+        //             email,
+        //             website,
+        //             createdAt
+        //         )
+        //     VALUES
+        //         (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())`,
+        //     [
+        //         //userId,
+        //         id_provincia,
+        //         id_localidad,
+        //         address,
+        //         nameSchool,
+        //         cue,
+        //         nivel,
+        //         horary,
+        //         descrip,
+        //         requirement,
+        //         phone,
+        //         email,
+        //         web
+        //     ]
+        // );
+
+        res.status(201).json({ message: 'Escuela creada' });
+    } catch (error) {
+        console.error('Error al crear la escuela:', error);
+        res.status(500).json({ message: 'Error al crear la escuela' });
     }
 }

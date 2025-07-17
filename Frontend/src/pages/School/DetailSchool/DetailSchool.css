@@ -144,9 +144,36 @@
     gap: 1.6rem;
 }
 
+.pTitle{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .pTitleSchool {
     font-size: 1.8rem;
     font-weight: 700;
+}
+
+.pEditSchool{
+    display: flex;
+    gap: .5rem;
+}
+
+.pEditSchool .pEditBtn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 5px;
+    border: 2px solid rgb(66, 66, 66);
+    border-radius: 50%;
+}
+.pEditBtn.editbtn{
+    background: #166beb;
+}
+.pEditBtn.deletebtn{
+    background: #ff0000;
 }
 
 .dataSchool {
@@ -202,6 +229,7 @@
 .column-info li {
     display: flex;
     justify-content: space-between;
+    gap: .5rem;
 }
 
 .column-info li span {

@@ -1,15 +1,17 @@
-import { IconSchool, IconStudent } from "../../../../assets/Icons"
+import { Link } from "react-router-dom"
+import { IconDelete, IconEdit, IconSchool, IconStudent } from "@assets/Icons"
+import { useAuth } from '@context/authConext'
 
 interface SchoolColum2Props {
   nameSchool: string;
+  userId: number;
+
   type: string;
   cue: number;
   nivel: string;
   horary: string;
   desc: string;
-  director: string;
-  subdirector: string;
-  secretario: string;
+  cargos: Cargos[];
   requirement: string;
 
   team_ori: boolean;
@@ -27,10 +29,30 @@ interface Modalities {
   name: string;
 }
 
-export const SchoolColum2: React.FC<SchoolColum2Props> = ({ nameSchool, type, cue, nivel, horary, desc, modalities, director, subdirector, secretario, team_ori, center_st, library, yard, dining_room, food_sr, requirement }) => {
+interface Cargos {
+  name: string;
+  position: string;
+}
+
+export const SchoolColum2: React.FC<SchoolColum2Props> = ({ nameSchool, userId, type, cue, nivel, horary, desc, modalities, cargos, team_ori, center_st, library, yard, dining_room, food_sr, requirement }) => {
+
+  const { isAuthenticated, user } = useAuth()
+
+  const userOwner = isAuthenticated && user?.id === userId
+
   return (
     <section className="sInfoPrincipal sInfoColumn">
-      <h1 className="pTitleSchool">{nameSchool}</h1>
+      <div className="pTitle">
+        <h1 className="pTitleSchool">{nameSchool}</h1>
+        {
+          userOwner && (
+            <div className="pEditSchool">
+              <Link to={`/schoolForm`} className="pEditBtn editbtn"><IconEdit /></Link>
+              <button className="pEditBtn deletebtn"><IconDelete /></button>
+            </div>
+          )
+        }
+      </div>
       <div className="pInfoSchool">
         <h2>Información principal</h2>
         <ul className="dataSchool">
@@ -79,15 +101,11 @@ export const SchoolColum2: React.FC<SchoolColum2Props> = ({ nameSchool, type, cu
             <h2 className="tittleNoMargin">Directivos a cargo</h2>
           </div>
           <ul className="column-info">
-            <li>
-              <span>Director:</span><p>{director}</p>
-            </li>
-            <li>
-              <span>Subdirector:</span><p>{subdirector}</p>
-            </li>
-            <li>
-              <span>Secretario:</span><p>{secretario}</p>
-            </li>
+            {cargos.map((cargo, index) => (
+              <li key={index}>
+                <span>{cargo.position}:</span> <p>{cargo.name}</p>
+              </li>
+            ))}
           </ul>
         </div>
         <div className="additional columnInfo">
@@ -106,7 +124,7 @@ export const SchoolColum2: React.FC<SchoolColum2Props> = ({ nameSchool, type, cu
         </div>
       </section>
       <footer>
-        <h2 className="tittleNoMargin">Requesitos</h2>
+        <h2 className="tittleNoMargin">Requisitos</h2>
         <p>{requirement}</p>
       </footer>
     </section>

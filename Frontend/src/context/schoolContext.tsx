@@ -1,11 +1,12 @@
 import { createContext, ReactNode, useCallback, useContext, useState } from "react";
-import { useAxios } from "../hooks/useAxios";
+import { useAxios } from "@hooks/useAxios";
 import { DetailSchool, School } from "./interface/school";
 
 
 interface SchoolContextProps {
-    getSchools: (filter:string) => Promise<void>;
-    getSchool: (id:number) => Promise<void>;
+    getSchools: (filter: string) => Promise<void>;
+    getSchool: (id: number) => Promise<void>;
+    postSchool: (formData: FormData) => Promise<void>;
     schools: School[];
     school: DetailSchool[];
     loading: boolean;
@@ -28,13 +29,13 @@ interface SchoolProvider {
 
 export const SchoolProvider: React.FC<SchoolProvider> = ({ children }) => {
 
-    const { fetchData, loading, error} = useAxios();
+    const { fetchData, loading, error } = useAxios();
 
     const [schools, setSchools] = useState<School[]>([])
 
     const [school, setSchool] = useState<DetailSchool[]>([])
 
-    const getSchools = useCallback(async (filter:string) => {
+    const getSchools = useCallback(async (filter: string) => {
         setSchools([]);
         try {
             const res = await fetchData({
@@ -47,7 +48,7 @@ export const SchoolProvider: React.FC<SchoolProvider> = ({ children }) => {
         }
     }, [fetchData]);
 
-    const getSchool = useCallback(async (id:number) => {
+    const getSchool = useCallback(async (id: number) => {
         setSchool([]);
         try {
             const res = await fetchData({
@@ -60,8 +61,21 @@ export const SchoolProvider: React.FC<SchoolProvider> = ({ children }) => {
         }
     }, [fetchData]);
 
+    const postSchool = useCallback(async (formData: FormData) => {
+        try {
+            const res = await fetchData({
+                url: '/institucion/school',
+                method: 'post',
+                data: formData,
+            });
+            setSchool(res);
+        } catch (error) {
+            console.error(error);
+        }
+    }, [fetchData]);
+
     return (
-        <SchoolContext.Provider value={{ getSchools, getSchool, schools, school, loading, error }}>
+        <SchoolContext.Provider value={{ getSchools, getSchool, postSchool,schools, school, loading, error }}>
             {children}
         </SchoolContext.Provider>
     )

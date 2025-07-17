@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
-import { IconCamera, IconEmail, IconFacebook, IconInstagram, IconPhone, IconTwitter, IconYoutube } from "../../../assets/Icons";
+import { IconCamera, IconEmail, IconFacebook, IconInstagram, IconPhone, IconTwitter, IconYoutube } from "@assets/Icons";
 import { useAxios } from "../../../hooks/useAxios";
-import { FormData, Localidad, Provincia } from "../interface/FormSchool";
+import { ErrorSchool, FormDatas, Localidad, Provincia } from "../interface/FormSchool";
 
 interface SFColum1Props {
-  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
-  formData: FormData;
+  setFormData: React.Dispatch<React.SetStateAction<FormDatas>>;
+  formData: FormDatas;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  errors: ErrorSchool;
+  images: File[];
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function SFColum1({ setFormData, formData }: SFColum1Props) {
-
-  console.log(formData);
+export function SFColum1({ setFormData, errors, images, handleChange, setModal }: SFColum1Props) {
 
   const { fetchData } = useAxios();
 
@@ -66,14 +68,30 @@ export function SFColum1({ setFormData, formData }: SFColum1Props) {
     }));
   };
 
+  const handleSocialChange = (id_social: number, value: string) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      socialLink: (prevData.socialLink || []).map((social) =>
+        social.id_social === id_social ? { ...social, link: value } : social
+      ),
+    }));
+  };
+
   return (
     <section className="sGeneralForm formColum">
-      <header className="gPhotoInstitute Form">
+      <header className="gPhotoInstitute Form" onClick={() => setModal(true)}>
+        {
+          images.length > 0 &&
+          <div className="miniatureImage" key={`imageMiniature`}>
+            <img src={URL.createObjectURL(images[0])} alt="" />
+          </div>
+        }
         <div className="gPhoto">
           <IconCamera />
         </div>
         <p>Agregar Fotos</p>
       </header>
+      {errors.images && <p className="fError">{errors.images}</p>}
 
       <div className="gFormDirection">
         <h2>Localización</h2>
@@ -85,6 +103,7 @@ export function SFColum1({ setFormData, formData }: SFColum1Props) {
               <option value={pro.id} key={pro.id}>{pro.provincia}</option>
             ))}
           </select>
+          {errors.id_provincia && <p className="fError">{errors.id_provincia}</p>}
         </div>
         <div className="formInput">
           <label htmlFor="localidad">Localidad:</label>
@@ -94,10 +113,12 @@ export function SFColum1({ setFormData, formData }: SFColum1Props) {
               <option value={loc.id} key={loc.id}>{loc.localidad}</option>
             ))}
           </select>
+          {errors.id_localidad && <p className="fError">{errors.id_localidad}</p>}
         </div>
         <div className="formInput">
           <label htmlFor="address">Dirección:</label>
-          <input type="text" id="address" placeholder="Dirección" autoComplete="off" />
+          <input type="text" id="address" name="address" placeholder="Dirección" autoComplete="off" onChange={handleChange} />
+          {errors.address && <p className="fError">{errors.address}</p>}
         </div>
       </div>
 
@@ -107,15 +128,17 @@ export function SFColum1({ setFormData, formData }: SFColum1Props) {
           <label htmlFor="phone">Teléfono:</label>
           <div className="inputCoctact">
             <IconPhone />
-            <input type="text" id="phone" placeholder="Teléfono" autoComplete="off" />
+            <input type="text" id="phone" name="phone" placeholder="Teléfono" autoComplete="off" onChange={handleChange} />
           </div>
+          {errors.phone && <p className="fError">{errors.phone}</p>}
         </div>
         <div className="contactsInput">
           <label htmlFor="email">Correo:</label>
           <div className="inputCoctact">
             <IconEmail />
-            <input type="email" id="email" placeholder="Correo" autoComplete="off" />
+            <input type="email" id="email" name="email" placeholder="Correo" autoComplete="off" onChange={handleChange} />
           </div>
+          {errors.email && <p className="fError">{errors.email}</p>}
         </div>
       </div>
 
@@ -123,25 +146,34 @@ export function SFColum1({ setFormData, formData }: SFColum1Props) {
         <h2>Redes sociales</h2>
         <div className="socialInput">
           <IconFacebook />
-          <input type="text" id="facebook" placeholder="Facebook" autoComplete="off" />
+          <input type="text" id="facebook" placeholder="Facebook" autoComplete="off"
+            onChange={(e) => handleSocialChange(1, e.target.value)} />
         </div>
+        {errors.linksErrors?.[1] && <p className="fError">{errors.linksErrors[1]}</p>}
         <div className="socialInput">
           <IconInstagram />
-          <input type="text" id="instagram" placeholder="Instagram" autoComplete="off" />
+          <input type="text" id="instagram" placeholder="Instagram" autoComplete="off"
+            onChange={(e) => handleSocialChange(2, e.target.value)} />
         </div>
+        {errors.linksErrors?.[2] && <p className="fError">{errors.linksErrors[2]}</p>}
         <div className="socialInput">
           <IconTwitter />
-          <input type="text" id="twitter" placeholder="Twitter" autoComplete="off" />
+          <input type="text" id="twitter" placeholder="Twitter" autoComplete="off"
+            onChange={(e) => handleSocialChange(3, e.target.value)} />
         </div>
+        {errors.linksErrors?.[3] && <p className="fError">{errors.linksErrors[3]}</p>}
         <div className="socialInput">
           <IconYoutube />
-          <input type="text" id="youtube" placeholder="Youtube" autoComplete="off" />
+          <input type="text" id="youtube" name="youtube" placeholder="Youtube" autoComplete="off"
+            onChange={(e) => handleSocialChange(4, e.target.value)} />
         </div>
+        {errors.linksErrors?.[4] && <p className="fError">{errors.linksErrors[4]}</p>}
       </div>
 
       <footer className="webSite">
         <label htmlFor="web">Sitio web:</label>
-        <input type="text" id="web" placeholder="Sitio web" autoComplete="off" />
+        <input type="text" id="web" name="web" placeholder="Sitio web" autoComplete="off" onChange={handleChange} />
+        {errors.web && <p className="fError">{errors.web}</p>}
       </footer>
     </section>
   )

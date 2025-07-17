@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import { useSchool } from '../../../context/schoolContext';
-import { IconClock, IconSchool } from '../../../assets/Icons';
-import { Loader } from '../../../components/Loader/Loader';
+import { useSchool } from '@context/schoolContext';
+import { IconClock, IconSchool } from '@assets/Icons';
+import { Loader } from '@components/Loader/Loader';
 import './listSchool.css'
 
 export function ListSchool() {

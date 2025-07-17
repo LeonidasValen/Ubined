@@ -1,4 +1,4 @@
-import { IconEmail, IconPhone } from "../../../../assets/Icons";
+import { IconEmail, IconPhone } from "@assets/Icons";
 
 interface SchoolColum1Props {
   provincia: string;
@@ -64,7 +64,7 @@ export const SchoolColum1: React.FC<SchoolColum1Props> = ({ provincia, localidad
       {web && (
         <footer className="webSite">
           <span>Sitio web:</span>
-          <a href="">{web}</a>
+          <a href="" target="_blanck">{web}</a>
         </footer>
       )
       }

@@ -1,10 +1,10 @@
-.schoolFormContainer{
+.schoolFormContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.schoolFormContainer button{
+.schoolFormContainer .schoolFormSubmit {
     background: #179f22;
     color: white;
     padding: 12px 10px;
@@ -15,11 +15,12 @@
     font-weight: 600;
     transition: 0.2s;
 }
-.schoolFormContainer button:hover{
+
+.schoolFormContainer .schoolFormSubmit:hover {
     background: #0c7911;
 }
 
-.schoolForm{
+.schoolForm {
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -29,18 +30,20 @@
     margin-inline: auto;
 }
 
-.schoolForm h2{
+.schoolForm h2 {
     font-size: 1.3rem;
     font-weight: 600;
 }
 
-.schoolForm input, .schoolForm select, .schoolForm textarea{
+.schoolForm input,
+.schoolForm select,
+.schoolForm textarea {
     border-radius: 6px;
-    padding: 6px  8px;
+    padding: 6px 8px;
     border: 1px solid #c9c9c9;
 }
 
-.formColum{
+.formColum {
     display: flex;
     flex-direction: column;
     background: var(--bgColorContent);
@@ -52,146 +55,337 @@
 
 /* FORMULARIO GENERAL */
 
-.gPhotoInstitute.Form{
+.gPhotoInstitute.Form {
+    position: relative;
     flex-direction: column;
     background: #f8f8f8;
     border: #c9c9c9 solid 1px;
     padding: 1rem;
-    height: 200px;
+    height: 100%;
+    min-height: 240px;
+    max-height: 250px;
 }
 
-.schoolForm .sGeneralForm{
+.gPhotoInstitute.Form .miniatureImage {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.gPhotoInstitute.Form .gPhoto{
+    position: relative;
+    z-index: 2;
+}
+
+.gPhotoInstitute p{
+    position: relative;
+    z-index: 2;
+}
+
+.schoolForm .sGeneralForm {
     width: 22%;
     gap: .6rem;
 }
 
-.sGeneralForm label{
+.sGeneralForm label {
     font-weight: 600;
 }
 
-.gFormDirection{
+.gFormDirection {
     display: flex;
     flex-direction: column;
     gap: .5rem;
 }
 
-.gFormDirection .formInput{
+.gFormDirection .formInput {
     display: flex;
     flex-direction: column;
 }
 
-.formCoctacts{
+.formCoctacts {
     display: flex;
     flex-direction: column;
 }
 
-.formCoctacts .contactsInput{
+.formCoctacts .contactsInput {
     display: flex;
     flex-direction: column;
 }
 
-.contactsInput .inputCoctact{
+.contactsInput .inputCoctact {
     position: relative;
     display: flex;
     align-items: center;
 }
-.inputCoctact input{
+
+.inputCoctact input {
     padding: 6px 2.1rem;
     width: 100%;
 }
-.inputCoctact svg{
+
+.inputCoctact svg {
     position: absolute;
     margin-left: 5px;
 }
 
-.gFormSocial{
+.gFormSocial {
     display: flex;
     flex-direction: column;
     gap: .5rem;
 }
 
-.gFormSocial .socialInput{
+.gFormSocial .socialInput {
     position: relative;
     display: flex;
     align-items: center;
 }
-.socialInput input{
+
+.socialInput input {
     padding: 6px 2.2rem;
     width: 100%;
 }
-.socialInput svg{
+
+.socialInput svg {
     position: absolute;
     margin-left: 5px;
 }
 
 /* FORMULARIO PRINCIPAL */
 
-.schoolForm .sPrincipalForm{
+.schoolForm .sPrincipalForm {
     width: 77%;
     gap: 1.6rem;
 }
 
-.sPrincipalForm h2{
+.sPrincipalForm h2 {
     margin-bottom: 10px;
 }
 
-.sPrincipalForm .inputTitle{
+.sPrincipalForm .inputTitle {
     font-size: 1.8rem;
     font-weight: 600;
 }
 
-.dataInpus{
+.pTitleInput{
+    display: flex;
+    flex-direction: column;
+}
+
+.dataInpus {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
 }
 
-.dataInpus li{
+.dataInpus li {
     display: flex;
     gap: .5rem;
     align-items: baseline;
 }
 
-.dataInpus .horaryChecks{
+.dataInpus .horaryChecks {
     display: flex;
     flex-direction: column;
     gap: .5rem;
 }
-.horaryChecks .horaryCheck{
+
+.horaryChecks .horaryCheck {
     display: flex;
     align-items: center;
     gap: .5rem;
 }
 
-.pDescForm textarea{
+.pDescForm textarea {
     font-family: 'Poppins', sans-serif;
     font-size: 1rem;
     width: 100%;
-    min-height: 150px; 
+    min-height: 150px;
     padding: 10px;
     resize: none;
     field-sizing: content;
 }
 
-.column-info.row1{
+.column-info.row1 {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
-.column-info.row1 input{
-    padding: 4px 5px;
+
+.column-info.row1 select{
+        width: 100%;
 }
 
-.requeriments{
+.column-info.row1 .inputCargo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+}
+
+.column-info.row1 input {
+    padding: 4px 5px;
+    height: 100%;
+}
+
+.column-info.row1 .inputCargo button{
+    background: var(--bgColorContent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    border: 1px solid #c9c9c9;
+    border-radius: 3px;
+}
+.column-info.row1 .inputCargo button:hover{
+    background: rgba(255, 213, 213, 0.863);
+    border: 1px solid rgba(255, 213, 213, 0.863);
+    color: rgb(255, 0, 0);
+}
+
+.column-info.row1 .inputCargo button svg{
+    width: 18px;
+}
+
+.column-info.row1 .btnAddCargo{
+    background: #111111;
+    border-radius: 6px;
+    padding: 10px;
+    border:  0;
+    color: var(--FontContrast);
+    font-weight: 600;
+}
+
+.column-info.row1 .btnAddCargo:disabled{
+    display: none;
+}
+
+.requeriments {
     display: flex;
     flex-direction: column;
 }
-.requeriments textarea{
+
+.requeriments textarea {
     font-family: 'Poppins', sans-serif;
     font-size: 1rem;
     width: 100%;
-    min-height: 1rem; 
+    min-height: 1rem;
     padding: 5px 10px;
     resize: none;
     field-sizing: content;
+}
+
+/*modal de fotos*/
+
+.photoModalContainer {
+    background: #000000ac;
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding-block: 2rem;
+    overflow-x: hidden;
+    overflow-y: overlay !important;
+    z-index: 1000;
+}
+
+.bgPModal {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    z-index: 20;
+    transition: background-color 3.2s;
+}
+
+.modalContent {
+    position: relative;
+    background: var(--bgColorContent);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    min-width: 900px;
+    height: 600px;
+    padding: 2rem;
+    margin: auto;
+    border-radius: 1rem;
+    gap: 1rem;
+    z-index: 30;
+}
+
+.modalContent .closeModal {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 2px solid #c9c9c9;
+    color: rgb(53, 53, 53);
+    height: 34px;
+    width: 34px;
+    margin: .5rem;
+    font-weight: 600;
+    font-size: 20px;
+    border-radius: 50%;
+}
+.modalContent .closeModal:hover{
+    background-color: #a3a3a3;
+    color: #000000;
+    border: 2px solid #a3a3a3;
+}
+
+.modalContent .uploadPhotos {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+    width: 270px;
+    height: 250px;
+    gap: .5rem;
+    border: 2px dashed var(--borderSeparation);
+    border-radius: 10px;
+    cursor: pointer;
+}
+.modalContent .uploadPhotos input {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.multipleImage{
+    position: relative;
+}
+
+.multipleImage img{
+    width: 270px;
+    height: 250px;
+    object-fit: cover;
+    border: 2px dashed var(--borderSeparation);
+    border-radius: 10px;
+}
+
+.multipleImage .deleteImage {
+    position: absolute;
+    background-color: #181818;
+    color: white;
+    height: 26px;
+    width: 26px;
+    margin: .5rem;
+    font-weight: 600;
+    top: 0;
+    right: 0;
+    border-radius: 50%;
+    border: 0;
 }

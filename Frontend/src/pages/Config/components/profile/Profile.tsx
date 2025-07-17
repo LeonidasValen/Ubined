@@ -1,5 +1,5 @@
-import { IconEdit, IconEmail } from "../../../../assets/Icons";
-import { useAuth } from "../../../../context/authConext";
+import { IconEdit, IconEmail } from "@assets/Icons";
+import { useAuth } from "@context/authConext";
 import './profile.css'
 
 export function Profile() {
