@@ -1,26 +1,22 @@
-import React, { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import React, { useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 import { SFColum1 } from "@pages/SchoolForm/components/SFColum1"
 import { SFColum2 } from "@pages/SchoolForm/components/SFColum2"
 import { SFModal } from "@pages/SchoolForm/components/SFModal"
 import { ErrorSchool, FormDatas } from "@pages/SchoolForm/interface/FormSchool"
 import { useSchool } from "@context/schoolContext"
-import { useAuth } from "@/context/authConext"
+import { useAuthenticated } from "@/hooks/useAuthenticated"
 import './shoolForm.css'
 
 export function SchoolForm() {
-  
-  const { postSchool } = useSchool()
-  
-  const { isAuthenticated, user, loading } = useAuth()
-  
+
+  const { postSchool, getSchool, school } = useSchool()
+
+  useAuthenticated();
+
   const navigate = useNavigate()
 
-  if (!loading) {
-    if (!isAuthenticated && !user) {
-      navigate('/error')
-    }
-  }
+  const { schoolId } = useParams<{ schoolId: string }>();
 
   const [modal, setModal] = useState<boolean>(false)
 
@@ -61,6 +57,34 @@ export function SchoolForm() {
       food_sr: 0,
     },
   })
+
+  useEffect(() => {
+    if (schoolId) {
+      getSchool(Number(schoolId));
+    }
+  }, [schoolId]);
+
+  useEffect(() => {
+    if (schoolId && school && school.length > 0) {
+      setFormData(prev => ({
+        ...prev,
+        nameSchool: school[0].nameSchool,
+        descrip: school[0].desc,
+        cue: school[0].cue,
+        nivel: school[0].nivel,
+        requirement: school[0].requirement,
+        schoolType: school[0].type,
+        id_provincia: school[0].id_provincia,
+        id_localidad: school[0].id_localidad,
+        address: school[0].address,
+        phone: school[0].phone,
+        email: school[0].email,
+        web: school[0].web,
+      }));
+    }
+
+  }, [school]);
+
 
   const [errors, setErrors] = useState({});
 
@@ -203,28 +227,43 @@ export function SchoolForm() {
 
     console.log('FormData entries:', Array.from(formSend.entries()));
 
-    try {
-      await postSchool(formSend);
-      //navigate('/schools');
-    } catch (error) {
-      console.log(error);
+    if (school && school.length > 0) {
+      try {
+        //await putSchool(formSend);
+        navigate('/schools');
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      try {
+        await postSchool(formSend);
+        navigate('/schools');
+      } catch (error) {
+        console.log(error);
+      }
     }
-
   }
 
   return (
-      <form className="schoolFormContainer" onSubmit={handleSubmit}>
-        <main className="schoolForm">
-          <SFColum1 setFormData={setFormData} formData={formData} images={images} errors={errors} handleChange={handleChange} setModal={setModal} />
-          <SFColum2 setFormData={setFormData} formData={formData} errors={errors} handleChange={handleChange} />
-        </main>
-        <button type="submit" className="schoolFormSubmit">
-          Subir Institución
-        </button>
-        {
-          modal &&
-          <SFModal setModal={setModal} images={images} setImages={setImages} />
-        }
-      </form>
+    <form className="schoolFormContainer" onSubmit={handleSubmit}>
+      <main className="schoolForm">
+        <SFColum1 setFormData={setFormData} formData={formData} images={images} errors={errors} handleChange={handleChange} setModal={setModal} />
+        <SFColum2 setFormData={setFormData} formData={formData} errors={errors} handleChange={handleChange} />
+      </main>
+      {
+        school && school.length > 0 ?
+          <button type="submit" className="schoolFormSubmit">
+            Actualizar Institución
+          </button> :
+          <button type="submit" className="schoolFormSubmit" disabled>
+            Subir Institución
+          </button>
+      }
+
+      {
+        modal &&
+        <SFModal setModal={setModal} images={images} setImages={setImages} />
+      }
+    </form>
   )
 }

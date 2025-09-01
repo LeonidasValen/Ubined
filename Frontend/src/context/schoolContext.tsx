@@ -35,7 +35,7 @@ export const SchoolProvider: React.FC<SchoolProvider> = ({ children }) => {
 
     const [school, setSchool] = useState<DetailSchool[]>([])
 
-    const getSchools = useCallback(async (filter: string) => {
+    const getSchools = useCallback(async (filter: string) => { //listado de escuelas
         setSchools([]);
         try {
             const res = await fetchData({
@@ -48,7 +48,7 @@ export const SchoolProvider: React.FC<SchoolProvider> = ({ children }) => {
         }
     }, [fetchData]);
 
-    const getSchool = useCallback(async (id: number) => {
+    const getSchool = useCallback(async (id: number) => { //detalle de escuela
         setSchool([]);
         try {
             const res = await fetchData({

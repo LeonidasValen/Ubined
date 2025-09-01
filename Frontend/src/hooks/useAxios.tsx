@@ -15,6 +15,8 @@ export const useAxios = () => {
     const [error, setError] = useState<string[]>([])
 
     const fetchData = async ({ url, method, data, headers }: CustomAxiosRequest) => {
+
+        //console.log(data instanceof FormData)
         setLoading(true)
         setError([]);
         try {
@@ -24,7 +26,7 @@ export const useAxios = () => {
                 method,
                 data,
                 headers: {
-                    'Content-Type': 'application/json',
+                    //'Content-Type': 'application/json',
                     ...headers,
                 },
             });

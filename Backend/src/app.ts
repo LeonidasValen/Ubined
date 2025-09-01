@@ -17,6 +17,7 @@ const corsOptions: CorsOptions = {
 
 app.use(cors(corsOptions));
 app.use(morgan('dev')); // ver peticiones del backend
+//app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); //acepta los formatos json
 app.use(cookieParser()); // configura las cookies
 

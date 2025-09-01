@@ -3,6 +3,7 @@ import { IconDelete, IconEdit, IconSchool, IconStudent } from "@assets/Icons"
 import { useAuth } from '@context/authConext'
 
 interface SchoolColum2Props {
+  schoolId: number;
   nameSchool: string;
   userId: number;
 
@@ -34,7 +35,7 @@ interface Cargos {
   position: string;
 }
 
-export const SchoolColum2: React.FC<SchoolColum2Props> = ({ nameSchool, userId, type, cue, nivel, horary, desc, modalities, cargos, team_ori, center_st, library, yard, dining_room, food_sr, requirement }) => {
+export const SchoolColum2: React.FC<SchoolColum2Props> = ({ schoolId, nameSchool, userId, type, cue, nivel, horary, desc, modalities, cargos, team_ori, center_st, library, yard, dining_room, food_sr, requirement }) => {
 
   const { isAuthenticated, user } = useAuth()
 
@@ -47,7 +48,7 @@ export const SchoolColum2: React.FC<SchoolColum2Props> = ({ nameSchool, userId, 
         {
           userOwner && (
             <div className="pEditSchool">
-              <Link to={`/schoolForm`} className="pEditBtn editbtn"><IconEdit /></Link>
+              <Link to={`/schoolForm/${schoolId}`} className="pEditBtn editbtn"><IconEdit /></Link>
               <button className="pEditBtn deletebtn"><IconDelete /></button>
             </div>
           )

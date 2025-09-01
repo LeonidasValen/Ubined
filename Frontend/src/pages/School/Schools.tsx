@@ -3,7 +3,7 @@ import { Search } from "@components/Search/Search";
 import { ListSchool } from "@pages/School/ListSchool/ListSchool";
 import './school.css'
 
-export function School() {
+export function Schools() {
   return (
     <main className="schoolsContainer">
       <div className="listContainer">

@@ -31,7 +31,13 @@ export function ListSchool() {
           schools.map((escuela) => (
             <article className='schoolContent' key={`School-${escuela.schoolId}`}>
               <Link to={`/school/${escuela.schoolId}`} className="sMiniature" aria-label='Deatails to school'>
-                <img src="/./img/escuela-reference.jpg" alt="" />
+                <>
+                  {escuela.img_url && escuela.img_url.length > 0 ? (
+                    <img src={escuela.img_url[0].replace('/upload/', '/upload/f_auto,q_auto,w_300/')} alt={`Imagen de ${escuela.NameSchool}`} />
+                  ) : (
+                    <img src="/./img/escuela-reference.jpg" alt="Imagen por defecto" />
+                  )}
+                </>
               </Link>
 
               <Link to={`/school/${escuela.schoolId}`} className="sInfo" aria-label='Deatails to school'>

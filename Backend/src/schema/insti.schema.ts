@@ -52,7 +52,7 @@ export const schoolSchema = z.object({
         })
         .int({ message: "Teléfono no es valido" })
         .positive({ message: "Teléfono no es valido" })
-        .max(9999999999, { message: "Teléfono no es valido" }), 
+        .max(999999999999, { message: "Teléfono es muy grande" }),
 
     email: z
         .string({ required_error: "Email es requerido" })
@@ -99,7 +99,7 @@ export const schoolSchema = z.object({
         })
         .int({ message: "CUE debe ser un número entero" })
         .positive({ message: "CUE debe ser un número positivo" })
-        .max(900000, { message: "CUE debe ser menor o igual a 900000" }),
+        .max(9999999, { message: "CUE debe ser menor a 9999999" }),
 
     nivel: z
         .enum(['Inicial', 'Primario', 'Secundario', 'Técnico', 'Universitario'], {

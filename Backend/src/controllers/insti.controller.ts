@@ -1,6 +1,12 @@
 import { Request, Response } from "express";
+import { v2 as cloudinary } from "cloudinary";
 import { InstiRow, InstiRowArticle } from "../interface/insti.interface";
 import { UserIdInterface } from "../interface/user.interface";
+import { RowDataPacket } from "mysql2";
+
+interface ExistingUser extends RowDataPacket {
+    id: number;
+}
 
 export const getSchools = async (req: Request, res: Response): Promise<InstiRowArticle[] | null> => {
     //Paginacion dei instituciones
@@ -10,6 +16,10 @@ export const getSchools = async (req: Request, res: Response): Promise<InstiRowA
 
     //buscador
     const { search = '' } = req.query as { search: string };
+
+    const { provincia } = req.query as { provincia: string };
+    const { localidad } = req.query as { localidad: string };
+    console.log(provincia, localidad)
 
     //obtiene los filtros
     const horario = req.query.horario as string | string[];
@@ -32,10 +42,18 @@ export const getSchools = async (req: Request, res: Response): Promise<InstiRowA
     if (horario) addFilter('institucion.horary', horario);
     if (nivel) addFilter('institucion.nivel', nivel);
     if (tipo) addFilter('institucion.type', tipo);
+    if (provincia) {
+        queryParams.push(provincia);
+        whereClauses.push(`provincias.provincia = ?`);
+    }
+    if (localidad) {
+        queryParams.push(localidad);
+        whereClauses.push(`localidades.localidad = ?`);
+    }
 
     if (search) {
-        queryParams.push(`%${search}%`, `%${search}%`);
-        whereClauses.push(`(institucion.name_insti LIKE ? OR institucion.descrip LIKE ?)`);
+        queryParams.push(`%${search}%`);
+        whereClauses.push(`institucion.name_insti LIKE ?`);
     }
 
     const whereClause = whereClauses.length > 0 ? `WHERE ${whereClauses.join(' AND ')}` : ''; //si hay clausulas se agrega WHERE y separa con AND si hay mas de una clausula
@@ -46,9 +64,7 @@ export const getSchools = async (req: Request, res: Response): Promise<InstiRowA
             `SELECT 
                 institucion.id,
                 institucion.id_user, 
-                provincias.provincia, 
                 institucion.id_provincia, 
-                localidades.localidad, 
                 institucion.id_localidad, 
                 institucion.name_insti, 
                 institucion.type, 
@@ -56,14 +72,24 @@ export const getSchools = async (req: Request, res: Response): Promise<InstiRowA
                 institucion.nivel, 
                 institucion.descrip, 
                 institucion.address, 
-                institucion.createdAt
+                institucion.createdAt,
+                
+                provincias.provincia, 
+                localidades.localidad, 
+
+                GROUP_CONCAT(DISTINCT insti_img.img_url SEPARATOR '||') AS img_url
+
             FROM
                 institucion
             INNER JOIN
                 provincias ON provincias.id = institucion.id_provincia
             INNER JOIN
                 localidades ON localidades.id = institucion.id_localidad
+            LEFT JOIN 
+                insti_img ON insti_img.id_insti = institucion.id
+
             ${whereClause}
+            GROUP BY institucion.id
             ORDER BY 
                 institucion.createdAt DESC
             LIMIT ? OFFSET ?
@@ -87,6 +113,7 @@ export const getSchools = async (req: Request, res: Response): Promise<InstiRowA
                 desc: row.descrip,
                 address: row.address,
                 creationAt: row.createdAt,
+                img_url: row.img_url ? row.img_url.split('||') : []
             }
         });
 
@@ -132,20 +159,26 @@ export const getSchool = async (req: Request, res: Response): Promise<InstiRow[]
                 insti_have.dining_room,
                 insti_have.food_sr,
 
+            GROUP_CONCAT(DISTINCT insti_img.img_url SEPARATOR '||') AS img_url,
+
             GROUP_CONCAT(DISTINCT directors.name ORDER BY directors.id) AS nameDirec,
-            GROUP_CONCAT(DISTINCT directors.position ORDER BY directors.id) AS posiDirec, 
+            GROUP_CONCAT(DISTINCT directors.position ORDER BY directors.id) AS posiDirec,
 
-            GROUP_CONCAT(DISTINCT type_redsocial.icon ORDER BY type_redsocial.id) AS iconRed,
-            GROUP_CONCAT(DISTINCT type_redsocial.type ORDER BY type_redsocial.id) AS typeRed,
-            GROUP_CONCAT(DISTINCT insti_social.link ORDER BY insti_social.id) AS link,
-
+            GROUP_CONCAT(
+                DISTINCT JSON_OBJECT(
+                    'icon', type_redsocial.icon,
+                    'type', type_redsocial.type,
+                    'link', insti_social.link
+                ) ORDER BY type_redsocial.id
+            ) AS socialMediaJson,
 
             GROUP_CONCAT(DISTINCT modalidades.icon ORDER BY modalidades.id) AS iconMod,
             GROUP_CONCAT(DISTINCT modalidades.modalidad ORDER BY modalidades.id) AS modalidad
 
-
             FROM
                 institucion
+            LEFT JOIN 
+                insti_img ON insti_img.id_insti = institucion.id
             INNER JOIN
                 provincias ON provincias.id = institucion.id_provincia
             INNER JOIN
@@ -160,10 +193,10 @@ export const getSchool = async (req: Request, res: Response): Promise<InstiRow[]
                 insti_mod ON insti_mod.id_insti = institucion.id
             LEFT JOIN
                 modalidades ON modalidades.id = insti_mod.id_modalidad
-            LEFT JOIN
-                insti_direc ON insti_direc.id_insti = institucion.id
-            LEFT JOIN
-                directors ON directors.id = insti_direc.id_director
+
+            LEFT JOIN insti_direc ON insti_direc.id_insti = institucion.id
+            LEFT JOIN directors ON directors.id_insti_direc = insti_direc.id
+
             WHERE
                 institucion.id = ?
             GROUP BY 
@@ -179,7 +212,9 @@ export const getSchool = async (req: Request, res: Response): Promise<InstiRow[]
             schoolId: row.id,
             userId: row.id_user,
             provincia: row.provincia,
+            id_provincia: row.id_provincia,
             localidad: row.localidad,
+            id_localidad: row.id_localidad,
             address: row.address,
             nameSchool: row.name_insti,
             type: row.type,
@@ -187,9 +222,6 @@ export const getSchool = async (req: Request, res: Response): Promise<InstiRow[]
             nivel: row.nivel,
             horary: row.horary,
             desc: row.descrip,
-            director: row.director,
-            subdirector: row.subdirector,
-            secretario: row.secretario,
             requirement: row.requirements,
             phone: row.phone,
             email: row.email,
@@ -203,16 +235,18 @@ export const getSchool = async (req: Request, res: Response): Promise<InstiRow[]
             dining_room: Boolean(row.dining_room),
             food_sr: Boolean(row.food_sr),
 
-            cargos: row.nameDirec ? row.posiDirec.split(',').map((_: number, i: string) => ({
-                name: row.nameDirec.split(',')[i],
-                position: row.posiDirec.split(',')[i]
-            })) : [],
+            img_url: row.img_url ? row.img_url.split('||') : [],
 
-            socialMedia: row.iconRed ? row.iconRed.split(',').map((icon: string, i: number) => ({
-                icon,
-                type: row.typeRed.split(',')[i],
-                link: row.link.split(',')[i]
-            })) : [],
+            cargos: row.nameDirec
+                ? row.posiDirec.split(',').map((_: number, i: string) => ({
+                    name: row.nameDirec.split(',')[i],
+                    position: row.posiDirec.split(',')[i]
+                }))
+                : [],
+
+            socialMedia: row.socialMediaJson
+                ? JSON.parse(`[${row.socialMediaJson}]`)
+                : [],
 
             modalities: row.iconMod ? row.iconMod.split(',').map((icon: string, i: number) => ({
                 icon,
@@ -230,56 +264,136 @@ export const getSchool = async (req: Request, res: Response): Promise<InstiRow[]
 }
 
 export const postSchool = async (req: UserIdInterface, res: Response) => {
+
+    const userId = req.user?.userId;
+
+    const images = (req as any).uploadedImages as { url: string; public_id: string }[];
+
     try {
 
-        const userId = req.user?.userId;
+        console.log("userid:", userId)
+
+        //console.log(images)
 
         const { nameSchool, address, phone, email, nivel, horary, descrip, id_provincia, id_localidad, schoolType, cue, requirement, team_ori, center_st, library, yard, dining_room, food_sr, managers, offerts, web, socialLink } = req.body;
 
-        console.log(nameSchool, address, phone, email, nivel, horary, descrip, id_provincia, id_localidad, schoolType, cue, requirement, team_ori, center_st, library, yard, dining_room, food_sr, managers, offerts, web, socialLink);
+        // console.log(nameSchool, address, phone, email, nivel, horary, descrip, id_provincia, id_localidad, schoolType, cue, requirement, team_ori, center_st, library, yard, dining_room, food_sr, managers, offerts, web, socialLink);
 
-        console.log(userId)
 
-        // const [sql] = await req.db!.query<InstiRow[]>(
-        //     `INSERT INTO
-        //         institucion (
-        //             id_user,
-        //             id_provincia,
-        //             id_localidad,
-        //             address,
-        //             name_insti,
-        //             type,
-        //             cue,
-        //             nivel,
-        //             horary,
-        //             descrip,
-        //             requirements,
-        //             phone,
-        //             email,
-        //             website,
-        //             createdAt
-        //         )
-        //     VALUES
-        //         (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())`,
-        //     [
-        //         //userId,
-        //         id_provincia,
-        //         id_localidad,
-        //         address,
-        //         nameSchool,
-        //         cue,
-        //         nivel,
-        //         horary,
-        //         descrip,
-        //         requirement,
-        //         phone,
-        //         email,
-        //         web
-        //     ]
-        // );
+        // Verificar si el usuario existe
+        const [userUpdate] = await req.db!.query<ExistingUser[]>("SELECT id FROM users WHERE id = ?", [userId]);
+        if (userUpdate.length === 0) {
+            res.status(404).json({ message: 'Usuario no encontrado' });
+            return
+        }
+
+        //throw new Error('Error forzado para testear rollback');
+        const [sql] = await req.db!.query<InstiRow[]>(
+            `INSERT INTO
+                institucion (
+                    id_user,
+                    name_insti,
+                    type,
+                    cue,
+                    nivel,
+                    horary,
+                    descrip,
+                    requirements,
+                    id_provincia,
+                    id_localidad,
+                    address,
+                    phone,
+                    email,
+                    website
+                )
+            VALUES
+                (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            [
+                userId,
+                nameSchool,
+                schoolType,
+                cue,
+                nivel,
+                horary,
+                descrip,
+                requirement,
+                id_provincia,
+                id_localidad,
+                address,
+                phone,
+                email,
+                web
+            ]
+        );
+
+        const newSchoolId = (sql as any).insertId;
+
+        // 2. Insertar infraestructura (insti_have)
+        await req.db!.query(`
+            INSERT INTO insti_have (
+            id_insti, team_ori, center_st, library, yard, dining_room, food_sr
+            ) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            [
+                newSchoolId,
+                team_ori,
+                center_st,
+                library,
+                yard,
+                dining_room,
+                food_sr
+            ]);
+
+        // 3. Insertar directores
+        for (const manager of managers) {
+            const [instiDirecRes] = await req.db!.query(
+                `INSERT INTO insti_direc (id_insti) VALUES (?)`,
+                [newSchoolId]
+            );
+
+            const instiDirecId = (instiDirecRes as any).insertId;
+
+            await req.db!.query(
+                `INSERT INTO directors (position, name, id_insti_direc) VALUES (?, ?, ?)`,
+                [manager.cargo, manager.nombre, instiDirecId]
+            );
+        }
+
+        // 4. Insertar redes sociales
+        console.log(socialLink)
+        for (const social of socialLink) {
+            await req.db!.query(
+                `INSERT INTO insti_social (id_social, link, id_insti) VALUES (?, ?, ?)`,
+                [social.id_social, social.link, newSchoolId]);
+        }
+
+        // 5. Insertar modalidades
+        for (const mod of offerts) {
+            await req.db!.query(
+                `INSERT INTO insti_mod (id_modalidad, id_insti) VALUES (?, ?)`,
+                [mod.id_modalidad, newSchoolId]);
+        }
+
+        for (const img of images) {
+            await req.db!.query(
+                `INSERT INTO insti_img (img_url, id_img, id_insti ) VALUES (?, ?, ?)`,
+                [img.url, img.public_id, newSchoolId]);
+        }
 
         res.status(201).json({ message: 'Escuela creada' });
     } catch (error) {
+
+
+        // Borra las imagenes subidas cuando haya un error
+        if (images && images.length > 0) {
+            await Promise.all(
+                images.map(img =>
+                    cloudinary.uploader.destroy(img.public_id).catch(err =>
+                        console.error(`Error al borrar imagen ${img.public_id}:`, err)
+                    )
+                )
+            );
+        }
+
         console.error('Error al crear la escuela:', error);
         res.status(500).json({ message: 'Error al crear la escuela' });
     }
