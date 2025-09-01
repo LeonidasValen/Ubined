@@ -125,7 +125,7 @@ export function SFColum2({ setFormData, formData, errors, handleChange }: SFColu
   return (
     <section className="sPrincipalForm formColum">
       <div className="pTitleInput">
-        <input className="inputTitle" type="text" name="nameSchool" placeholder="Nombre Escuela" autoComplete="on" onChange={handleChange} />
+        <input className="inputTitle" type="text" name="nameSchool" placeholder="Nombre Escuela" autoComplete="on" value={formData.nameSchool} onChange={handleChange} />
         {errors.nameSchool && <p className="fError">{errors.nameSchool}</p>}
       </div>
       <div className="pInfoInputs">
@@ -140,7 +140,7 @@ export function SFColum2({ setFormData, formData, errors, handleChange }: SFColu
           </li>
           <li>
             <label htmlFor="cue">CUE:</label>
-            <input type="number" name="cue" id="cue" placeholder="CUE" min={0} onChange={handleChange} />
+            <input type="number" name="cue" id="cue" placeholder="CUE" min={0} value={formData.cue} onChange={handleChange} />
           </li>
           <li>
             <label htmlFor="nivel">Nivel:</label>
@@ -175,7 +175,7 @@ export function SFColum2({ setFormData, formData, errors, handleChange }: SFColu
 
       <article className="pDescForm">
         <h2>Descripción</h2>
-        <textarea name="descrip" id="descrip" placeholder="Descripción de la escuela" onChange={handleChange} />
+        <textarea name="descrip" id="descrip" placeholder="Descripción de la escuela" value={formData.descrip} onChange={handleChange} />
         {errors.descrip && <p className="fError">{errors.descrip}</p>}
       </article>
 
@@ -277,7 +277,7 @@ export function SFColum2({ setFormData, formData, errors, handleChange }: SFColu
 
       <footer className="requeriments">
         <h2>Requisitos</h2>
-        <textarea name="requirement" id="requirement" placeholder="Requesitos para ingresar a la escuela" onChange={handleChange} />
+        <textarea name="requirement" id="requirement" placeholder="Requesitos para ingresar a la escuela" value={formData.requirement} onChange={handleChange} />
         {errors.requirement && <p className="fError">{errors.requirement}</p>}
       </footer>
 

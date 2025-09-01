@@ -12,7 +12,7 @@ interface SFColum1Props {
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function SFColum1({ setFormData, errors, images, handleChange, setModal }: SFColum1Props) {
+export function SFColum1({ setFormData, formData, errors, images, handleChange, setModal }: SFColum1Props) {
 
   const { fetchData } = useAxios();
 
@@ -60,6 +60,12 @@ export function SFColum1({ setFormData, errors, images, handleChange, setModal }
     }
   };
 
+  useEffect(() => { // Cuando existe id_provincia en formData ya que va editar el instituto carga las localidades
+    if (formData.id_provincia > 0) {
+      getLocalidades(formData.id_provincia);
+    }
+  }, [formData.id_provincia]);
+
   const handleLocalidad = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const id = Number(e.target.value);
     setFormData((prevData) => ({
@@ -97,7 +103,7 @@ export function SFColum1({ setFormData, errors, images, handleChange, setModal }
         <h2>Localización</h2>
         <div className="formInput">
           <label htmlFor="provincia">Provincia:</label>
-          <select name="provincia" id="provincia" onChange={handleProvincia}>
+          <select name="provincia" id="provincia" value={formData.id_provincia} onChange={handleProvincia}>
             <option value="">Selecciona la provincia</option>
             {provincias.map((pro: Provincia) => (
               <option value={pro.id} key={pro.id}>{pro.provincia}</option>
@@ -107,7 +113,7 @@ export function SFColum1({ setFormData, errors, images, handleChange, setModal }
         </div>
         <div className="formInput">
           <label htmlFor="localidad">Localidad:</label>
-          <select name="localidad" id="localidad" onChange={handleLocalidad}>
+          <select name="localidad" id="localidad" value={formData.id_localidad} onChange={handleLocalidad}>
             <option value="">Selecciona la localidad</option>
             {localidades.map((loc: Localidad) => (
               <option value={loc.id} key={loc.id}>{loc.localidad}</option>
@@ -117,7 +123,7 @@ export function SFColum1({ setFormData, errors, images, handleChange, setModal }
         </div>
         <div className="formInput">
           <label htmlFor="address">Dirección:</label>
-          <input type="text" id="address" name="address" placeholder="Dirección" autoComplete="off" onChange={handleChange} />
+          <input type="text" id="address" name="address" placeholder="Dirección" value={formData.address} autoComplete="off" onChange={handleChange} />
           {errors.address && <p className="fError">{errors.address}</p>}
         </div>
       </div>
@@ -128,7 +134,7 @@ export function SFColum1({ setFormData, errors, images, handleChange, setModal }
           <label htmlFor="phone">Teléfono:</label>
           <div className="inputCoctact">
             <IconPhone />
-            <input type="text" id="phone" name="phone" placeholder="Teléfono" autoComplete="off" onChange={handleChange} />
+            <input type="text" id="phone" name="phone" placeholder="Teléfono" value={formData.phone} autoComplete="off" onChange={handleChange} />
           </div>
           {errors.phone && <p className="fError">{errors.phone}</p>}
         </div>
@@ -136,7 +142,7 @@ export function SFColum1({ setFormData, errors, images, handleChange, setModal }
           <label htmlFor="email">Correo:</label>
           <div className="inputCoctact">
             <IconEmail />
-            <input type="email" id="email" name="email" placeholder="Correo" autoComplete="off" onChange={handleChange} />
+            <input type="email" id="email" name="email" placeholder="Correo" autoComplete="off" value={formData.email} onChange={handleChange} />
           </div>
           {errors.email && <p className="fError">{errors.email}</p>}
         </div>
@@ -172,7 +178,7 @@ export function SFColum1({ setFormData, errors, images, handleChange, setModal }
 
       <footer className="webSite">
         <label htmlFor="web">Sitio web:</label>
-        <input type="text" id="web" name="web" placeholder="Sitio web" autoComplete="off" onChange={handleChange} />
+        <input type="text" id="web" name="web" placeholder="Sitio web" autoComplete="off" value={formData.web} onChange={handleChange} />
         {errors.web && <p className="fError">{errors.web}</p>}
       </footer>
     </section>

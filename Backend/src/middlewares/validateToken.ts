@@ -7,7 +7,7 @@ interface CustomRequest extends Request {
 }
 
 export const validateToken = (req: CustomRequest, res: Response, next: NextFunction): Response | void => {
-    const token = req.cookies.token;
+    const token = req.cookies.token as string;
 
     if (!token) return res.status(401).json({ message: "No estás autenticado" });
 

@@ -1,6 +1,8 @@
-import { IconEmail, IconPhone } from "@assets/Icons";
+import { IconArrowLeft, IconArrowRight, IconEmail, IconPhone } from "@assets/Icons";
+import { useState } from "react";
 
 interface SchoolColum1Props {
+  schoolImg?: string[];
   provincia: string;
   localidad: string;
   address: string;
@@ -16,13 +18,32 @@ export interface Social {
   link: string;
 }
 
+export const SchoolColum1: React.FC<SchoolColum1Props> = ({ schoolImg, provincia, localidad, address, phone, email, web, socialMedia }) => {
 
-export const SchoolColum1: React.FC<SchoolColum1Props> = ({ provincia, localidad, address, phone, email, web, socialMedia }) => {
+  const [modalImg, setModalImg] = useState<boolean>(false)
+
+  const [slideNumber, setSlideNumber] = useState<number>(0)
+
+  const handleMove = (direction: string) => {
+    let newSlideNumber: number = slideNumber;
+    if (direction === "l") {
+      newSlideNumber = slideNumber === 0 ? schoolImg!.length - 1 : slideNumber - 1;
+    } else if (direction === "r") {
+      newSlideNumber = slideNumber === schoolImg!.length - 1 ? 0 : slideNumber + 1;
+    }
+    setSlideNumber(newSlideNumber);
+  }
 
   return (
     <section className="sInfoGeneral sInfoColumn">
-      <header className="gPhotoInstitute">
-        <img src="/./img/escuela-reference.jpg" alt="" />
+      <header className="gPhotoInstitute" onClick={() => setModalImg(true)}>
+        {
+          schoolImg && schoolImg.length > 0
+            ? (
+              <img src={schoolImg[0].replace('/upload/', '/upload/f_auto,q_auto,w_450/')} alt="Imagen de la escuela" />
+            )
+            : <img src="/./img/escuela-reference.jpg" alt="Imagen por defecto" />
+        }
       </header>
       <div className="gDirection">
         <h2>Localización</h2>
@@ -54,9 +75,19 @@ export const SchoolColum1: React.FC<SchoolColum1Props> = ({ provincia, localidad
           <article className="gRedsocial">
             <h2>Redes</h2>
             <div className="redes">
-              {socialMedia.map(red => (
-                <a href={red.link} className={`itemRedSocial ${red.type}`} target="_blanck" key={`redID ${red.type}`}><img src={`/./icons/${red.icon}`} alt="" />{red.type}</a>
-              ))}
+              {socialMedia
+                .filter(red => red.link?.trim()) // <-- Solo redes con link no vacío
+                .map(red => (
+                  <a
+                    href={red.link}
+                    className={`itemRedSocial ${red.type} `}
+                    target="_blank"
+                    key={`redID-${red.type}`}
+                  >
+                    <img src={`/./icons/${red.icon}`} alt={red.type} />
+                    {red.type}
+                  </a>
+                ))}
             </div>
           </article>
         )
@@ -66,6 +97,31 @@ export const SchoolColum1: React.FC<SchoolColum1Props> = ({ provincia, localidad
           <span>Sitio web:</span>
           <a href="" target="_blanck">{web}</a>
         </footer>
+      )
+      }
+
+      {modalImg && schoolImg && (
+        <div className="photoModalContainer">
+          <div className="bgPModal" onClick={() => setModalImg(false)}></div>
+          <div className="modalImgContent">
+            <div className="imgList">
+              {schoolImg.slice(0, 5).map((img, index) => (
+                <img src={img.replace('/upload/', '/upload/f_auto,q_auto,w_150/')} alt="" key={`img${index}`} className={index === slideNumber ? 'active-thumbnail' : ''} onClick={() => setSlideNumber(index)}/>
+              ))}
+            </div>
+            <div className="imgSlider">
+              <span onClick={() => handleMove("l")} >
+                <IconArrowLeft />
+              </span>
+              <div className="imgSliderContent">
+                <img src={schoolImg[slideNumber].replace('/upload/', '/upload/f_auto,q_auto,w_450/')} alt="" />
+              </div>
+              <span onClick={() => handleMove("r")}>
+                <IconArrowRight />
+              </span>
+            </div>
+          </div>
+        </div>
       )
       }
     </section>

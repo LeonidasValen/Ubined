@@ -5,7 +5,7 @@ import { Home } from "@pages/Home/Home"
 import { Register } from "@pages/Auth/Register/Register"
 import { Login } from "@pages/Auth/Login/Login"
 import { OTP } from "@pages/Auth/OTP/OTP"
-import { School } from "@pages/School/School"
+import { Schools } from "@/pages/School/Schools"
 import { DetailSchool } from "@pages/School/DetailSchool/DetailSchool"
 import { Config } from "@pages/Config/Config"
 import { HelpSupport } from "@pages/Config/components/helpSupport/HelpSupport"
@@ -31,7 +31,7 @@ function App() {
         },
         {
           path: '/schools',
-          element: <School />
+          element: <Schools />
         },
         {
           path: '/school/:schoolId',
@@ -39,7 +39,17 @@ function App() {
         },
         {
           path: '/schoolForm',
-          element: <AuthAuthenticated><SchoolForm /></AuthAuthenticated>
+          element:
+            <AuthAuthenticated>
+              <SchoolForm/>
+            </AuthAuthenticated>
+        },
+        {
+          path: '/schoolForm/:schoolId',
+          element:
+            <AuthAuthenticated>
+              <SchoolForm/>
+            </AuthAuthenticated>
         },
         {
           path: '/config',

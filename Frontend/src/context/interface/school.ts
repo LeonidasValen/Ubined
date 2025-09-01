@@ -9,18 +9,22 @@ export interface School {
     provincia: string;
     localidad: string;
     address: string;
+    img_url: string[];
 }
 
-export interface Cargos{
-  name: string;
-  position: string;
+export interface Cargos {
+    name: string;
+    position: string;
 }
 
 export interface DetailSchool {
+    img_url: string[];
     schoolId: number;
     userId: number;
     provincia: string;
     localidad: string;
+    id_provincia: number,
+    id_localidad: number,
     address: string;
     nameSchool: string;
     type: string;
@@ -44,9 +48,9 @@ export interface DetailSchool {
     yard: boolean;
     dining_room: boolean;
     food_sr: boolean;
-    
+
     socialMedia: Social[];
-    
+
     modalities: Modalities[];
 }
 
@@ -56,7 +60,7 @@ interface Social {
     link: string;
 }
 
-interface Modalities{
+interface Modalities {
     icon: string;
     name: string;
 }
